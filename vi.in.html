@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>vi.in</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">vi.in</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">vi.in</td>
+  </tr>
+</table>
+<div class="manual-text">An Introduction to Display Editing with Vi William Joy+
+  Computer Science Division Department of Electrical Engineering and Computer
+  Science University of California, Berkeley Berkeley, Ca. 94720
+<p class="Pp"><i>Vi</i> (visual) is a display oriented interactive text editor.
+    When using <i>vi</i> the screen of your terminal acts as a window into the
+    file which you are editing. Changes which you make to the file are reflected
+    in what you see.</p>
+<p class="Pp">Using <i>vi</i> you can insert new text any place in the file
+    quite easily. Most of the commands to <i>vi</i> move the cursor around in
+    the file. There are commands to move the cursor forward and backward in
+    units of characters, words, sentences and paragraphs. A small set of
+    operators, like <b>d</b> for delete and <b>c</b> for change, are combined
+    with the motion commands to form operations such as delete word or delete
+    paragraph, in a simple and natural way. This regularity and the mnemonic
+    assignment of commands to keys makes the editor command set easy to remember
+    and to use.</p>
+<p class="Pp"><i>Vi</i> will work on a large number of display terminals, and
+    new terminals are easily driven after editing a terminal description file.
+    While it is advantageous to have an intelligent terminal which can locally
+    insert and delete lines and characters from the display, the editor will
+    function quite well on dumb terminals over slow phone lines. The editor
+    makes allowance for the low bandwidth in these situations and uses smaller
+    window sizes and different display updating algorithms to make best use of
+    the limited speed available.</p>
+<p class="Pp">It is also possible to use the command set of <i>vi</i> on
+    hardcopy terminals, storage tubes and ``glass tty's'' using a one line
+    editing window; thus <i>vi's</i> command set is available on all terminals.
+    On large machines, the full command set of the more traditional, line
+    oriented editor <i>ex</i> is available within <i>vi;</i> it is quite simple
+    to switch between the two modes of editing. Getting started</p>
+<p class="Pp">+ The financial support of an IBM Graduate Fellowship and the
+    National Science Foundation under grants MCS74-07644-A03 and MCS78-07291 is
+    gratefully acknowledged. This manual provides a quick introduction to
+    <i>vi.</i> You should be running <i>vi</i> on a file you are familiar with
+    while you are reading this. The first part of this document (sections 1
+    through 5) describes the basics of using <i>vi.</i> Some topics of special
+    interest are presented in section 6, and some nitty-gritty details of how
+    the editor functions are saved for section 7 to avoid cluttering the
+    presentation here.</p>
+<p class="Pp">There is also a short appendix here, which gives for each
+    character the special meanings which this character has in <i>vi</i>.
+    Attached to this document should be a quick reference card. This card
+    summarizes the commands of <i>vi</i> in a very compact format. You should
+    have the card handy while you are learning <i>vi.</i> Specifying terminal
+    type</p>
+<p class="Pp">Before you can start <i>vi</i> you must tell the system what kind
+    of terminal you are using. Here is a (necessarily incomplete) list of
+    terminal type codes. If your terminal does not appear here, you should
+    consult with one of the staff members on your system to find out the code
+    for your terminal. If your terminal does not have a code, one can be
+    assigned and a description for the terminal can be created.</p>
+<p class="Pp"></p>
+<table class="tbl">
+  <tr style="border-bottom-style: solid;">
+    <td><b>&#x2003;</b><b>Code</b></td>
+    <td><b>&#x2003;</b><b>Full name</b></td>
+    <td><b>&#x2003;</b><b>Type</b></td>
+  </tr>
+  <tr>
+    <td>&#x2003;2621</td>
+    <td>&#x2003;Hewlett-Packard 2621A/P</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;2645</td>
+    <td>&#x2003;Hewlett-Packard 264x</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;act4</td>
+    <td>&#x2003;Microterm ACT-IV</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+  <tr>
+    <td>&#x2003;act5</td>
+    <td>&#x2003;Microterm ACT-V</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+  <tr>
+    <td>&#x2003;adm3a</td>
+    <td>&#x2003;Lear Siegler ADM-3a</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+  <tr>
+    <td>&#x2003;adm31</td>
+    <td>&#x2003;Lear Siegler ADM-31</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;c100</td>
+    <td>&#x2003;Human Design Concept 100</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;dm1520</td>
+    <td>&#x2003;Datamedia 1520</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+  <tr>
+    <td>&#x2003;dm2500</td>
+    <td>&#x2003;Datamedia 2500</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;dm3025</td>
+    <td>&#x2003;Datamedia 3025</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;fox</td>
+    <td>&#x2003;Perkin-Elmer Fox</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+  <tr>
+    <td>&#x2003;h1500</td>
+    <td>&#x2003;Hazeltine 1500</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;h1510</td>
+    <td>&#x2003;Hazeltine 1510</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;i100</td>
+    <td>&#x2003;Infoton 100</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;mime</td>
+    <td>&#x2003;Imitating a smart act5</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;owl</td>
+    <td>&#x2003;Perkin-Elmer Owl</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;t1061</td>
+    <td>&#x2003;Teleray 1061</td>
+    <td>&#x2003;Intelligent</td>
+  </tr>
+  <tr>
+    <td>&#x2003;vt52</td>
+    <td>&#x2003;Dec VT-52</td>
+    <td>&#x2003;Dumb</td>
+  </tr>
+</table>
+<p class="Pp">Assume for the time being that you have a Hewlett-Packard HP2621A
+    terminal. The code used by the system for this terminal is `2621'. In this
+    case you can use one of the following commands to tell the system the type
+    of your terminal: % <b>setenv TERM</b> 2621 This command works with the
+    shell <i>csh</i> on both version 6 and 7 systems. If you are using the
+    standard version 7 shell then you should give the command $
+  <b>TERM=</b>2621</p>
+<p class="Pp">The editor command set is independent of the terminal you are
+    using. On some terminals with cursor positioning keys, these keys will also
+    work within the editor.* * The current version of the editor does not
+    support the use of cursor keys if these keys send multi-character codes.
+    This works, for instance, on the <i>dm1520.</i> On the <i>adm3a,</i> the
+    <b>h j k</b> and <b>l</b> keys work as cursor positioning keys (these are
+    labelled with arrows). Editing a file</p>
+<p class="Pp">After telling the system which kind of terminal you have, you
+    should make a copy of a file you are familiar with, and run <i>vi</i> on
+    this file, giving the command % <b>vi</b> <i>name</i> replacing <i>name</i>
+    with the name of the copy file you just created. The screen should clear and
+    the text of your file should appear on the screen. If something else happens
+    refer to the footnote.+ + If you gave the system an incorrect terminal type
+    code then the editor may have just made a mess out of your screen. This
+    happens when it sends control codes for one kind of terminal to some other
+    kind of terminal. In this case hit the keys <b>:q</b> (colon and the q key)
+    and then hit the RETURN key. This should get you back to the command level
+    interpreter. Figure out what you did wrong (ask someone else if necessary)
+    and try again.
+  <br/>
+   Another thing which can go wrong is that you typed the wrong file name and
+    the editor just printed an error diagnostic. In this case you should follow
+    the above procedure for getting out of the editor, and try again this time
+    spelling the file name correctly.
+  <br/>
+   If the editor doesn't seem to respond to the commands which you type here,
+    try sending an interrupt to it by hitting the DEL or RUB key on your
+    terminal, and then hitting the <b>:q</b> command again followed by a
+    carriage return.</p>
+<p class="Pp">The editor's copy: the buffer</p>
+<p class="Pp">The editor does not directly modify the file which you are
+    editing. Rather, the editor makes a copy of this file, in a place called the
+    <i>buffer,</i> and remembers the file's name. You do not affect the contents
+    of the file unless and until you write the changes you make back into the
+    original file. Notational conventions</p>
+<p class="Pp">In our examples, input which must be typed as is will be presented
+    in <b>bold face</b>. Text which should be replaced with appropriate input
+    will be given in <i>italics</i>. We will represent special characters in
+    SMALL CAPITALS. Special characters: ESC and DEL</p>
+<p class="Pp">Several of these special characters are very important, so be sure
+    to find them right now. Look on your keyboard for a key labelled ESC or ALT.
+    It should be near the upper left corner of your terminal. Try hitting this
+    key a few times. The editor will ring the bell to indicate that it is in a
+    quiescent state.++ ++ On smart terminals where it is possible, the editor
+    will quietly flash the screen rather than ringing the bell. Partially formed
+    commands are cancelled by ESC, and when you insert text in the file you end
+    the text insertion with ESC. This key is a fairly harmless one to hit, so
+    you can just hit it if you don't know what is going on until the editor
+    rings the bell.</p>
+<p class="Pp">Another very useful key is the DEL or RUB key, which generates an
+    interrupt, telling the editor to stop what it is doing. It is a forceful way
+    of making the editor listen to you, or to return it to the quiescent state
+    if you don't know or don't like what is going on. Try hitting the `/' key on
+    your terminal. This key is used when you want to specify a string to be
+    searched for. The cursor should now be positioned at the bottom line of the
+    terminal after a `/' printed as a prompt. You can get the cursor back to the
+    current position by hitting the DEL or RUB key; try this now. From now on we
+    will simply refer to hitting the DEL or RUB key as ``sending an
+    interrupt.''* * On some systems, this interruptibility comes at a price: you
+    cannot type ahead when the editor is computing with the cursor on the bottom
+    line.</p>
+<p class="Pp">The editor often echoes your commands on the last line of the
+    terminal. If the cursor is on the first position of this last line, then the
+    editor is performing a computation, such as computing a new position in the
+    file after a search or running a command to reformat part of the buffer.
+    When this is happening you can stop the editor by sending an interrupt.
+    Getting out of the editor</p>
+<p class="Pp">After you have worked with this introduction for a while, and you
+    wish to do something else, you can give the command <b>:wq</b>ESC to the
+    editor.+ + All commands which read from the last display line can also be
+    terminated with a RETURN as well as an ESC. This will write the contents of
+    the editor's buffer back into the file you are editing, saving your changes,
+    and then quitting from the editor. You can also end an editor session by
+    giving the command <b>:q!</b>ESC; this is a dangerous but occasionally
+    essential command which ends the editor session and discards all your
+    changes. You need to know about this command in case you change the editor's
+    copy of a file you wish only to look at. Be very careful not to give this
+    command when you really want to save the changes you have made. Moving
+    around in the file Scrolling and paging</p>
+<p class="Pp">The editor has a number of commands for moving around in the file.
+    The most useful of these is generated by hitting the control and D keys at
+    the same time, a control-D or `^D'. We will use this two character notation
+    for referring to these control keys from now on. You may have a key labelled
+    `^' on your terminal. This key will be represented as `&#x2191;' in this
+    document; `^' is exclusively used as part of the `^x' notation for control
+    characters.++ ++ If you don't have a `^' key on your terminal then there is
+    probably a key labelled `&#x2191;'; in any case these characters are one and
+    the same.</p>
+<p class="Pp">As you know now if you tried hitting <b>^D</b>, this command
+    scrolls down in the file. The <b>D</b> thus stands for down. Many editor
+    commands are mnemonic and this makes them much easier to remember. For
+    instance the command to scroll up is <b>^U</b>. Many dumb terminals can't
+    scroll up at all, in which case hitting <b>^U</b> clears the screen and
+    refreshes it with a line which is farther back in the file at the top.</p>
+<p class="Pp">There are other ways to move around in the file; the keys
+    <b>^F</b> and <b>^B</b> move forward and backward a page, keeping a couple
+    of lines of continuity between screens so that it is possible to read
+    through a file using these rather than <b>^D</b> and <b>^U</b> if you
+  wish.</p>
+<p class="Pp">Notice the difference between scrolling and paging. If you are
+    trying to read the text in a file, hitting <b>^F</b> to move forwarda a page
+    will leave you only a little context to look back at. Scrolling on the other
+    hand leaves more context, and happens more smoothly. You can continue to
+    read the text as scrolling is taking place. Searching, goto, and previous
+    context</p>
+<p class="Pp">Another way to position yourself in the file is by giving the
+    editor a string to search for. Type the character <b>/</b> followed by a
+    string of characters terminated by ESC. The editor will position the cursor
+    at the first occurrence of this string on a line after the current line. Try
+    hitting <b>n</b> to go to the next line with an occurrence of this string.
+    The character <b>?</b> will search backwards from where you are, and is
+    otherwise like <b>/</b>.+ + These searches will normally wrap around the end
+    of the file, and thus find the string even if it is not on a line in the
+    direction you search provided it is anywhere else in the file. You can
+    disable this wraparound in scans by giving the command <b>:se
+    nowrapscan</b>ESC, or more briefly <b>:se nows</b>ESC.</p>
+<p class="Pp">If the search string you give the editor is not present in the
+    file the editor will print a diagnostic on the last line of the screen, and
+    the cursor will be returned to its initial position.</p>
+<p class="Pp">If you wish the search to match only at the beginning of a line,
+    begin the search string with an <b>&#x2191;</b>. To match only at the end of
+    a line, end the search string with a <b>$</b>. Thus
+    <b>/&#x2191;search</b>ESC will search for the word `search' at the beginning
+    of a line, and <b>/last$</b>ESC searches for the word `last' at the end of a
+    line.</p>
+<p class="Pp">The command <b>G</b>, when preceded by a number will position the
+    cursor at that line in the file. Thus <b>1G</b> will move the cursor to the
+    first line of the file. If you give <b>G</b> no count, then it moves to the
+    end of the file.</p>
+<p class="Pp">If you are near the end of the file, and the last line is not at
+    the bottom of the screen, the editor will place only the character `~' on
+    each remaining line. This indicates that the last line in the file is on the
+    screen; that is, the `~' lines are past the end of the file.</p>
+<p class="Pp">You can find out the state of the file you are editing by typing a
+    <b>^G</b>. The editor will show you the name of the file you are editing,
+    the number of the current line, the number of lines in the buffer, and the
+    percentage of the way through the buffer which you are. Try doing this now,
+    and remember the number of the line you are on. Give a <b>G</b> command to
+    get to the end and then another <b>G</b> command to get back where you
+  were.</p>
+<p class="Pp">You can also get back to a previous position by using the command
+    <b>``</b> (two back quotes). This is often more convenient than <b>G</b>
+    because it requires no advance preparation. Try giving a <b>G</b> or a
+    search with <b>/</b> or <b>?</b> and then a <b>``</b> to get back to where
+    you were. If you accidentally hit <b>n</b> or any command which moves you
+    far away from a context of interest, you can quickly get back by hitting
+    <b>``</b>. Moving around on the screen</p>
+<p class="Pp">Now try just moving the cursor around on the screen. Hit the
+    <b>+</b> key. Each time you do, notice that the cursor advances to the next
+    line in the file, at the first non-white position on the line. The <b>-</b>
+    key is like <b>+</b> but goes the other way.</p>
+<p class="Pp">These are very common keys for moving up and down lines in the
+    file. Notice that if you go off the bottom or top with these keys then the
+    screen will scroll down (and up if possible) to bring a line at a time into
+    view. The RETURN key has the same effect as the <b>+</b> key.</p>
+<p class="Pp"><i>Vi</i> also has commands to take you to the top, middle and
+    bottom of the screen. <b>H</b> will take you to the top (home) line on the
+    screen. Try preceding it with a number as in <b>3H</b>. This will take you
+    to the third line on the screen. Many <i>vi</i> commands take preceding
+    numbers and do interesting things with them. Try <b>M</b>, which takes you
+    to the middle line on the screen, and <b>L</b>, which takes you to the last
+    line on the screen. <b>L</b> also takes counts, thus <b>5L</b> will take you
+    to the fifth line from the bottom.</p>
+<p class="Pp"><i>Vi</i> also has commands which take you to the next or previous
+    line in the same horizontal position (column) as the one you start in. Try
+    <b>^N</b> to move to the next line in the same column, <b>^P</b> to move to
+    the previous line in the same column. Moving within a line</p>
+<p class="Pp">Now try picking a word on some line on the screen, not the first
+    word on the line. move the cursor using RETURN and <b>-</b> to be on the
+    line where the word is. Try hitting the <b>w</b> key. This will advance the
+    cursor to the next word on the line. Try hitting the <b>b</b> key to back up
+    words in the line. Also try the <b>e</b> key which advances you to the end
+    of the current word rather than to the beginning of the next word. Also try
+    SPACE (the space bar) which moves right one character and the BS (backspace
+    or <b>^H</b>) key which moves left one character. The key <b>h</b> works as
+    <b>^H</b> does and is useful if you don't have a BS key.</p>
+<p class="Pp">If the line had punctuation in it you may have noticed that that
+    the <b>w</b> and <b>b</b> keys stopped at each group of punctuation. You can
+    also go back and forwards words without stopping at punctuation by using
+    <b>W</b> and <b>B</b> rather than the lower case equivalents. Think of these
+    as bigger words. Try these on a few lines with punctuation to see how they
+    differ from the lower case <b>w</b> and <b>b</b>.</p>
+<p class="Pp">The word keys never move off the end of the line, but rather stop
+    at the end. You can get easily to the beginning of the next line by doing a
+    RETURN at the end of the current line. To get to the end of the previous
+    line type <b>-$</b>. Summary</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <table class="tbl">
+      <tr>
+        <td><b></b>SPACE<b></b></td>
+        <td>&#x2003;advance the cursor one position</td>
+      </tr>
+      <tr>
+        <td><b>^B</b></td>
+        <td>&#x2003;backwards to previous page</td>
+      </tr>
+      <tr>
+        <td><b>^D</b></td>
+        <td>&#x2003;scrolls down in the file</td>
+      </tr>
+      <tr>
+        <td><b>^F</b></td>
+        <td>&#x2003;forward to next page</td>
+      </tr>
+      <tr>
+        <td><b>^G</b></td>
+        <td>&#x2003;tell what is going on</td>
+      </tr>
+      <tr>
+        <td><b>^H</b></td>
+        <td>&#x2003;backspace the cursor</td>
+      </tr>
+      <tr>
+        <td><b>^N</b></td>
+        <td>&#x2003;next line, same column</td>
+      </tr>
+      <tr>
+        <td><b>^P</b></td>
+        <td>&#x2003;previous line, same column</td>
+      </tr>
+      <tr>
+        <td><b>+</b></td>
+        <td>&#x2003;next line, at the beginning</td>
+      </tr>
+      <tr>
+        <td><b>-</b></td>
+        <td>&#x2003;previous line, at the beginning</td>
+      </tr>
+      <tr>
+        <td><b>/</b></td>
+        <td>&#x2003;scan for a following string forwards</td>
+      </tr>
+      <tr>
+        <td><b>?</b></td>
+        <td>&#x2003;scan backwards</td>
+      </tr>
+      <tr>
+        <td><b>B</b></td>
+        <td>&#x2003;back a word, ignoring punctuation</td>
+      </tr>
+      <tr>
+        <td><b>G</b></td>
+        <td>&#x2003;go to specified line, last default</td>
+      </tr>
+      <tr>
+        <td><b>H</b></td>
+        <td>&#x2003;home screen line</td>
+      </tr>
+      <tr>
+        <td><b>M</b></td>
+        <td>&#x2003;middle screen line</td>
+      </tr>
+      <tr>
+        <td><b>L</b></td>
+        <td>&#x2003;last screen line</td>
+      </tr>
+      <tr>
+        <td><b>W</b></td>
+        <td>&#x2003;forward a word, ignoring punctuation</td>
+      </tr>
+      <tr>
+        <td><b>b</b></td>
+        <td>&#x2003;back a word</td>
+      </tr>
+      <tr>
+        <td><b>e</b></td>
+        <td>&#x2003;end of current word</td>
+      </tr>
+      <tr>
+        <td><b>n</b></td>
+        <td>&#x2003;scan for next instance of <b>/</b> or <b>?</b> pattern</td>
+      </tr>
+      <tr>
+        <td><b>w</b></td>
+        <td>&#x2003;word after this word</td>
+      </tr>
+    </table>
+    Making simple changes Inserting</dd>
+</dl>
+<p class="Pp">One of the most useful commands is the <b>i</b> (insert) command.
+    After you type <b>i</b>, everything you type until you hit ESC is inserted
+    into the file. Try this now; position yourself to some word in the file and
+    try inserting text before this word. If you are on an dumb terminal it will
+    seem, for a minute, that some of the characters in your line have been
+    overwritten, but they will reappear when you hit ESC.</p>
+<p class="Pp">Now try finding a word which can, but does not, end in an `s'.
+    Position yourself at this word and type <b>e</b> (move to end of word), then
+    <b>a</b> for append and then `sESC' to terminate the textual insert. This
+    sequence of commands can be used to easily pluralize a word.</p>
+<p class="Pp">Try inserting and appending a few times to make sure you
+    understand how this works; <b>i</b> placing text to the left of the cursor,
+    <b>a</b> to the right.</p>
+<p class="Pp">It is often the case that you want to add new lines to the file
+    you are editing, before or after some specific line in the file. Find a line
+    where this makes sense and then give the command <b>o</b> to create a new
+    line after the line you are on, or the command <b>O</b> to create a new line
+    before the line you are on. After you create a new line in this way, text
+    you type up to an ESC is inserted on the new line.</p>
+<p class="Pp">Many related editor commands are invoked by the same letter key
+    and differ only in that one is given by a lower case key and the other is
+    given by an upper case key. In these cases, the upper case key often differs
+    from the lower case key in its sense of direction, with the upper case key
+    working backward and/or up, while the lower case key moves forward and/or
+    down.</p>
+<p class="Pp">Whenever you are typing in text, you can give many lines of input
+    or just a few characters. To type in more than one line of text, hit a
+    RETURN at the middle of your input. A new line will be created for text, and
+    you can continue to type. If you are on a slow and dumb terminal the editor
+    may choose to wait to redraw the tail of the screen, and will let you type
+    over the existing screen lines. This avoids the lengthy delay which would
+    occur if the editor attempted to keep the tail of the screen always up to
+    date. The tail of the screen will be fixed up, and the missing lines will
+    reappear, when you hit ESC.</p>
+<p class="Pp">While you are inserting new text, you can use the characters you
+    normally use at the system command level (usually <b>^H</b> or <b>#</b>) to
+    backspace over the last character which you typed, and the character which
+    you use to kill input lines (usually <b>@</b> or <b>^X</b>) to erase the
+    input you have typed on the current line.+ + In fact, the character
+    <b>^H</b> (backspace) always works to erase the last input character here,
+    regardless of what your erase character is. The character <b>^W</b> will
+    erase a whole word and leave you after the space after the previous word; it
+    is useful for quickly backing up in an insert.</p>
+<p class="Pp">Notice that when you backspace during an insertion the characters
+    you backspace over are not erased; the cursor moves backwards, and the
+    characters remain on the display. This is often useful if you are planning
+    to type in something similar. In any case the characters disappear when when
+    you hit ESC; if you want to get rid of them immediately, hit an ESC and then
+    <b>a</b> again.</p>
+<p class="Pp">Notice also that you can't erase characters which you didn't
+    insert, and that you can't backspace around the end of a line. If you need
+    to back up to the previous line to make a correction, just hit ESC and move
+    the cursor back to the previous line. After making the correction you can
+    return to where you were and use the insert or append command again. Making
+    small corrections</p>
+<p class="Pp">You can make small corrections in existing text quite easily. Find
+    a single character which is wrong or just pick any character. Get near the
+    character with the word motion keys and then either backspace (hit the BS
+    key or <b>^H</b> or even just <b>h</b>) or SPACE (using the space bar) until
+    the cursor is on the character which is wrong. If the character is not
+    needed then hit the <b>x</b> key; this deletes the character from the file.
+    It is analogous to the way you <b>x</b> out characters when you make
+    mistakes on a typewriter (except it's not as messy).</p>
+<p class="Pp">If the character is incorrect, you can replace it with the correct
+    character by giving the command <b>r</b><i>c</i>, where <i>c</i> is replaced
+    by the correct character. Finally if the character which is incorrect should
+    be replaced by more than one character, give the command <b>s</b> which
+    substitutes a string of characters, ending with ESC, for it. If there are a
+    small number of characters which are wrong you can precede <b>s</b> with a
+    count of the number of characters to be replaced. Counts are also useful
+    with <b>x</b> to specify the number of characters to be deleted. More
+    corrections: operators</p>
+<p class="Pp">You already know almost enough to make changes at a higher level.
+    All you need to know now is that the <b>d</b> key acts as a delete operator.
+    Try the command <b>dw</b> to delete a word. Try hitting <b>.</b> a few
+    times. Notice that this repeats the effect of the <b>dw</b>. The command
+    <b>.</b> repeats the last command which made a change. You can remember it
+    by analogy with an ellipsis `<b>...</b>'.</p>
+<p class="Pp">Now try <b>db</b>. This deletes a word backwards, namely the
+    preceding word. Try <b>d</b>SPACE. This deletes a single character, and is
+    equivalent to the <b>x</b> command.</p>
+<p class="Pp">Another very useful operator is <b>c</b> or change. The command
+    <b>cw</b> thus changes the text of a single word. You follow it by the
+    replacement text ending with an ESC. Find a word which you can change to
+    another, and try this now. Notice that the end of the text to be changed was
+    marked with the character `$' so that you can see this as you are typing in
+    the new material. Operating on lines</p>
+<p class="Pp">It is often the case that you want to operate on lines. Find a
+    line which you want to delete, and type <b>dd</b>, the <b>d</b> operator
+    twice. This will delete the line. If you are on a dumb terminal, the editor
+    may just erase the line on the screen, replacing it with a line with only an
+    @ on it. This line does not correspond to any line in your file, but only
+    acts as a place holder. It helps to avoid a lengthy redraw of the rest of
+    the screen which would be necessary to close up the hole created by the
+    deletion on a terminal without a delete line capability.</p>
+<p class="Pp">Try repeating the <b>c</b> operator twice; this will change a
+    whole line, erasing its previous contents and replacing them with text you
+    type up to an ESC.+ + The command <b>S</b> is a convenient synonym for for
+    <b>cc</b>, by analogy with <b>S</b>. Think of <b>S</b> as a substitute on
+    lines, while <b>s</b> is a substitute on characters.</p>
+<p class="Pp">You can delete or change more than one line by preceding the
+    <b>dd</b> or <b>cc</b> with a count, i.e. <b>5dd</b> deletes 5 lines. You
+    can also give a command like <b>dL</b> to delete all the lines upto and
+    including the last line on the screen, or <b>d3L</b> to delete through the
+    third from the bottom line. Try some commands like this now. Notice that the
+    editor lets you know when you change a large number of lines so that you can
+    see the extent of the change. The editor will also always tell you when a
+    change you make affects text which you cannot see. Undoing</p>
+<p class="Pp">Now suppose that the last change which you made was incorrect; you
+    could use the insert, delete and append commands to put the correct material
+    back. However, since it is often the case that we regret a change or make a
+    change incorrectly, the editor provides a <b>u</b> (undo) command to reverse
+    the last change which you made. Try this a few times, and give it twice in a
+    row to notice that an <b>u</b> also undoes a <b>u.</b></p>
+<p class="Pp">The undo command lets you reverse only a single change. After you
+    make a number of changes to a line, you may decide that you would rather
+    have the original state of the line back. The <b>U</b> command restores the
+    current line to the state before you started changing it.</p>
+<p class="Pp">You can recover text which you delete, even if undo will not bring
+    it back; see the section on recovering lost text below. Summary</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <table class="tbl">
+      <tr>
+        <td><b></b>SPACE<b></b></td>
+        <td>&#x2003;advance the cursor one position</td>
+      </tr>
+      <tr>
+        <td><b>^H</b></td>
+        <td>&#x2003;backspace the cursor</td>
+      </tr>
+      <tr>
+        <td><b>^W</b></td>
+        <td>&#x2003;erase a word during an insert</td>
+      </tr>
+      <tr>
+        <td><b></b>erase<b></b></td>
+        <td>&#x2003;your erase (usually ^H or #), erases a character during an
+          insert</td>
+      </tr>
+      <tr>
+        <td><b></b>kill<b></b></td>
+        <td>&#x2003;your kill (usually @ or ^X), kills the insert on this
+          line</td>
+      </tr>
+      <tr>
+        <td><b></b><b>.</b><b></b></td>
+        <td>&#x2003;repeats the changing command</td>
+      </tr>
+      <tr>
+        <td><b>O</b></td>
+        <td>&#x2003;opens and inputs new lines, above the current</td>
+      </tr>
+      <tr>
+        <td><b>U</b></td>
+        <td>&#x2003;undoes the changes you made to the current line</td>
+      </tr>
+      <tr>
+        <td><b>a</b></td>
+        <td>&#x2003;appends text after the cursor</td>
+      </tr>
+      <tr>
+        <td><b>c</b></td>
+        <td>&#x2003;changes the object you specify to the following text</td>
+      </tr>
+      <tr>
+        <td><b>d</b></td>
+        <td>&#x2003;deletes the object you specify</td>
+      </tr>
+      <tr>
+        <td><b>i</b></td>
+        <td>&#x2003;inserts text before the cursor</td>
+      </tr>
+      <tr>
+        <td><b>o</b></td>
+        <td>&#x2003;opens and inputs new lines, below the current</td>
+      </tr>
+      <tr>
+        <td><b>u</b></td>
+        <td>&#x2003;undoes the last change</td>
+      </tr>
+    </table>
+    Moving about; rearranging and duplicating text Low level character
+    motions</dd>
+</dl>
+<p class="Pp">Now move the cursor to a line where there is a punctuation or a
+    bracketing character such as a parenthesis or a comma or period. Try the
+    command <b>f</b><i>x</i> where <i>x</i> is this character. This command
+    finds the next <i>x</i> character to the right of the cursor in the current
+    line. Try then hitting a <b>;</b>, which finds the next instance of the same
+    character. By using the <b>f</b> command and then a sequence of <b>;</b>'s
+    you can often get to a particular place in a line much faster than with a
+    sequence of word motions or SPACEs. There is also a <b>F</b> command, which
+    is like <b>f</b>, but searches backward. The <b>;</b> command repeats
+    <b>F</b> also.</p>
+<p class="Pp">When you are operating on the text in a line it is often desirable
+    to deal with the characters up to, but not including, the first instance of
+    a character. Try <b>df</b><i>x</i> for some <i>x</i> now and notice that the
+    <i>x</i> character is deleted. Undo this with <b>u</b> and then try
+    <b>dt</b><i>x</i>; the <b>t</b> here stands for to, i.e. delete up to the
+    next <i>x</i>, but not the <i>x</i>. The command <b>T</b> is the reverse of
+    <b>t</b>.</p>
+<p class="Pp">When working with the text of a single line, an <b>&#x2191;</b>
+    moves the cursor to the first non-white position on the line, and a <b>$</b>
+    moves it to the end of the line. Thus <b>$a</b> will append new text at the
+    end of the current line.</p>
+<p class="Pp">Your file may have tab (<b>^I</b>) characters in it. These
+    characters are represented as a number of spaces expanding to a tab stop,
+    where tab stops are every 8 positions.* * This is settable by a command of
+    the form <b>:se ts=</b><i>x</i>ESC, where <i>x</i> is 4 to set tabstops
+    every four columns. This has effect on the screen representation within the
+    editor. When the cursor is at a tab, it sits on the last of the several
+    spaces which represent that tab. Try moving the cursor back and forth over
+    tabs so you understand how this works.</p>
+<p class="Pp">On rare occasions, your file may have nonprinting characters in
+    it. These characters are displayed in the same way they are represented in
+    this document, that is with a two character code, the first character of
+    which is `^'. On the screen non-printing characters resemble a `^' character
+    adjacent to another, but spacing or backspacing over the character will
+    reveal that the two characters are, like the spaces representing a tab
+    character, a single character.</p>
+<p class="Pp">The editor normally discards control characters if you attempt to
+    insert them in your file. You can get a control character in the file by
+    beginning an insert and then typing a <b>^Q</b> before the control
+    character. The <b>^Q</b> quotes the following character, causing it to be
+    inserted directly into the file.</p>
+<p class="Pp">Higher level text objects</p>
+<p class="Pp">In working with a document it is often advantageous to work in
+    terms of sentences, paragraphs, and sections. The operations <b>(</b> and
+    <b>)</b> move to the beginning of the previous and next sentences
+    respectively. Thus the command <b>d)</b> will delete the rest of the current
+    sentence; likewise <b>d(</b> will delete the previous sentence if you are at
+    the beginning of the current sentence, or the current sentence up to where
+    you are if you are not at the beginning of the current sentence.</p>
+<p class="Pp">A sentence is defined to end at a `.', `!' or `?' which is
+    followed by either the end of a line, or by two spaces. Any number of
+    closing `)', `]', `&quot;' and `&#x00B4;' characters may appear after the
+    `.', `!' or `?' before the spaces or end of line.</p>
+<p class="Pp">The operations <b>{</b> and <b>}</b> move over paragraphs and the
+    operations <b>[[</b> and <b>]]</b> move over sections.+ + The <b>[[</b> and
+    <b>]]</b> operations require the operation character to be doubled because
+    they can move the cursor far from where it currently is. While it is easy to
+    get back with the command <b>``</b>. these would be frustrating if it was
+    easy to hit them accidentally.</p>
+<p class="Pp">A paragraph begins after each empty line, and also at each of a
+    set of paragraph macros, specified by the pairs of characters in the
+    definition of the string valued option <i>paragraphs</i>. The default
+    setting for this option defines the paragraph macros of the <i>-ms</i> macro
+    package, i.e. the `.IP', `.LP', `.PP' and `.QP' macros.++ ++ You can easily
+    change or extend this set of macros by assigning a different string to the
+    <i>paragraphs</i> option in your `.exrc' file. See section 6.2 for details.
+    The `.bp' directive is also considered to start a paragraph. Each paragraph
+    boundary is also a sentence boundary. The sentence and paragraph commands
+    can be given counts to operate over groups of sentences and paragraphs.</p>
+<p class="Pp">Sections in the editor begin after each macro in the
+    <i>sections</i> option, normally `.NH' and `.SH', and each line with a
+    formfeed <b>^L</b> in the first column. Section boundaries are always line
+    and paragraph boundaries also.</p>
+<p class="Pp">Try experimenting with the sentence and paragraph commands until
+    you are sure how they work. If you have a large document, try looking
+    through it using the section commands. The section commands interpret a
+    preceding count as a different window size in which to redraw the screen at
+    the new location, and this window size is the base size for newly drawn
+    windows until another size is specified. This is very useful if you are on a
+    slow terminal and are looking for a particular section. You can give the
+    first section command a small count to then see each successive section
+    heading in a small window. Rearranging and duplicating text</p>
+<p class="Pp">The editor has a single unnamed buffer where the last deleted or
+    changed away text is saved, and a set of named buffers <b>a</b>-<b>z</b>
+    which you can use to save copies of text and to move text around in your
+    file and between files.</p>
+<p class="Pp">The operator <b>y</b> yanks a copy of the object which follows
+    into the unnamed buffer. If preceded by a buffer name,
+    <b>&quot;</b><i>x</i><b>y</b>, where <i>x</i> here is replaced by a letter
+    <b>a-z</b>, it places the text in the named buffer. The text can then be put
+    back in the file with the commands <b>p</b> and <b>P;</b> <b>p</b> puts the
+    text after or below the cursor, while <b>P</b> puts the text before or above
+    the cursor.</p>
+<p class="Pp">If the text which you yank forms a part of a line, or is an object
+    such as a sentence which partially spans more than one line, then when you
+    put the text back, it will be placed after the cursor (or before if you use
+    <b>P</b>). If the yanked text forms whole lines, they will be put back as
+    whole lines, without changing the current line. In this case, the put acts
+    much like a <b>o</b> or <b>O</b> command.</p>
+<p class="Pp">Try the command <b>YP</b>. This makes a copy of the current line
+    and leaves you on this copy, which is placed before the current line. The
+    command <b>Y</b> is a convenient abbreviation for <b>yy</b>. The command
+    <b>Yp</b> will also make a copy of the current line, and place it after the
+    current line. You can give <b>Y</b> a count of lines to yank, and thus
+    duplicate several lines; try <b>3YP</b>.</p>
+<p class="Pp">To move text within the buffer, you need to delete it in one
+    place, and put it back in another. You can precede a delete operation by the
+    name of a buffer in which the text is to be stored as in <b>&quot;a5dd</b>
+    deleting 5 lines into the named buffer <i>a</i>. You can then move the
+    cursor to the eventual resting place of the these lines and do a
+    <b>&quot;ap</b> or <b>&quot;aP</b> to put them back. In fact, you can switch
+    and edit another file before you put the lines back, by giving a command of
+    the form <b>:e </b><i>name</i>ESC where <i>name</i> is the name of the other
+    file you want to edit. You will have to write back the contents of the
+    current editor buffer (or discard them) if you have made changes before the
+    editor will let you switch to the other file. Summary.</p>
+<dl class="Bl-tag">
+  <dt></dt>
+  <dd>
+    <table class="tbl">
+      <tr>
+        <td><b>&#x2191;</b></td>
+        <td>&#x2003;first non-white on line</td>
+      </tr>
+      <tr>
+        <td><b>$</b></td>
+        <td>&#x2003;end of line</td>
+      </tr>
+      <tr>
+        <td><b>)</b></td>
+        <td>&#x2003;forward sentence</td>
+      </tr>
+      <tr>
+        <td><b>}</b></td>
+        <td>&#x2003;forward paragraph</td>
+      </tr>
+      <tr>
+        <td><b>]]</b></td>
+        <td>&#x2003;forward section</td>
+      </tr>
+      <tr>
+        <td><b>(</b></td>
+        <td>&#x2003;backward sentence</td>
+      </tr>
+      <tr>
+        <td><b>{</b></td>
+        <td>&#x2003;backward paragraph</td>
+      </tr>
+      <tr>
+        <td><b>[[</b></td>
+        <td>&#x2003;backward section</td>
+      </tr>
+      <tr>
+        <td><b>f</b><i>x</i></td>
+        <td>&#x2003;find <i>x</i> forward in line</td>
+      </tr>
+      <tr>
+        <td><b>p</b></td>
+        <td>&#x2003;put text back, after cursor or below current line</td>
+      </tr>
+      <tr>
+        <td><b>y</b></td>
+        <td>&#x2003;yank operator, for copies and moves</td>
+      </tr>
+      <tr>
+        <td><b>t</b><i>x</i></td>
+        <td>&#x2003;upto <i>x</i> forward, for operators</td>
+      </tr>
+      <tr>
+        <td><b>F</b><i>x</i></td>
+        <td>&#x2003;f backward in line</td>
+      </tr>
+      <tr>
+        <td><b>P</b></td>
+        <td>&#x2003;put text back, before cursor or above current line</td>
+      </tr>
+      <tr>
+        <td><b>T</b><i>x</i></td>
+        <td>&#x2003;t backward in line</td>
+      </tr>
+    </table>
+    High level commands Writing, quitting, editing new files</dd>
+</dl>
+<p class="Pp">So far we have seen how to enter <i>vi</i> and to write out our
+    file using either <b>:wq</b>ESC or <b>:w</b>ESC. The first writes and quits
+    from the editor, the second writes and stays in the editor.</p>
+<p class="Pp">If you have changed the editor's copy of the file but do not wish
+    to save your changes, either because you messed up the file or decided that
+    the changes are not an improvement to the file, then you can give the
+    command <b>:q!</b>ESC to quit from the editor without writing the changes.
+    You can also reedit the same file (starting over) by giving the command
+    <b>:e!</b>ESC. These commands should be used only rarely, and with caution,
+    as it is not possible to recover the changes you have made after you discard
+    them in this manner.</p>
+<p class="Pp">You can edit a different file without leaving the editor by giving
+    the command <b>:e</b>&#x00A0;<i>name</i>ESC. If you have not written out
+    your file before you try to do this, then the editor will tell you this, and
+    delay editing the other file. You can then give the command <b>:w</b>ESC to
+    save your work and then the <b>:e</b>&#x00A0;<i>name</i>ESC command again,
+    or carefully give the command <b>:e!</b>&#x00A0;<i>name</i>ESC, which edits
+    the other file discarding the changes you have made to the current file.
+    Escaping to a shell</p>
+<p class="Pp">You can get to a shell to execute a single command by giving a
+    <i>vi</i> command of the form <b>:!</b><i>cmd</i>ESC. The system will run
+    the single command <i>cmd</i> and when the command finishes, the editor will
+    ask you to hit a RETURN to continue. When you have finished looking at the
+    output on the screen, you should hit RETURN and the editor will clear the
+    screen and redraw it. You can then continue editing. You can also give
+    another <b>:</b> command when it asks you for a RETURN; in this case the
+    screen will not be redrawn.</p>
+<p class="Pp">If you wish to execute more than one command in the shell, then
+    you can give the command <b>:sh</b>ESC. This will give you a new shell, and
+    when you finish with the shell, ending it by typing a <b>^D</b>, the editor
+    will clear the screen and continue. Marking and returning</p>
+<p class="Pp">The command <b>``</b> returned to the previous place after a
+    motion of the cursor by a command such as <b>/</b>, <b>?</b> or <b>G</b>.
+    You can also mark lines in the file with single letter tags and return to
+    these marks later by naming the tags. Try marking the current line with the
+    command <b>m</b><i>x</i>, where you should pick some letter for <i>x</i>,
+    say `a'. Then move the cursor to a different line (any way you like) and hit
+    <b>`a</b>. The cursor will return to the place which you marked. Marks last
+    only until you edit another file.</p>
+<p class="Pp">When using operators such as <b>d</b> and referring to marked
+    lines, it is often desirable to delete whole lines rather than deleting to
+    the exact position in the line marked by <b>m</b>. In this case you can use
+    the form <b>&#x00B4;</b><i>x</i> rather than <b>`</b><i>x</i>. Used without
+    an operator, <b>&#x00B4;</b><i>x</i> will move to the first non-white
+    character of the marked line; similarly <b>&#x00B4;&#x00B4;</b> moves to the
+    first non-white character of the line containing the previous context mark
+    <b>``</b>. Adjusting the screen</p>
+<p class="Pp">If the screen image is messed up because of a transmission error
+    to your terminal, or because some program other than the editor wrote output
+    to your terminal, you can hit a <b>^L</b>, the ASCII form-feed character, to
+    cause the screen to be refreshed.</p>
+<p class="Pp">On a dumb terminal, if there are @ lines in the middle of the
+    screen as a result of line deletion, you may get rid of these lines by
+    typing <b>^R</b> to cause the editor to retype the screen, closing up these
+    holes.</p>
+<p class="Pp">Finally, if you wish to place a certain line on the screen at the
+    top middle or bottom of the screen, you can position the cursor to that
+    line, and then give a <b>z</b> command. You should follow the <b>z</b>
+    command with a RETURN if you want the line to appear at the top of the
+    window, a <b>.</b> if you want it at the center, or a <b>-</b> if you want
+    it at the bottom. Special topics Editing on slow terminals</p>
+<p class="Pp">When you are on a slow terminal, it is important to limit the
+    amount of output which is generated to your screen so that you will not
+    suffer long delays, waiting for the screen to be refreshed. We have already
+    pointed out how the editor optimizes the updating of the screen during
+    insertions on dumb terminals to limit the delays, and how the editor erases
+    lines to @ when they are deleted on dumb terminals.</p>
+<p class="Pp">The use of the slow terminal insertion mode is controlled by the
+    <i>slowopen</i> option. You can force the editor to use this mode even on
+    faster terminals by giving the command <b>:se slow</b>ESC. If your system is
+    sluggish this helps lessen the amount of output coming to your terminal. You
+    can disable this option by <b>:se noslow</b>ESC.</p>
+<p class="Pp">The editor can simulate an intelligent terminal on a dumb one. Try
+    giving the command <b>:se redraw</b>ESC. This simulation generates a great
+    deal of output and is generally tolerable only on lightly loaded systems and
+    fast terminals. You can disable this by giving the command
+  <br/>
+   <b>:se noredraw</b>ESC.</p>
+<p class="Pp">The editor also makes editing more pleasant at low speed by
+    starting editing in a small window, and letting the window expand as you
+    edit. This works particularly well on intelligent terminals. The editor can
+    expand the window easily when you insert in the middle of the screen on
+    these terminals. If possible, try the editor on an intelligent terminal to
+    see how this works.</p>
+<p class="Pp">You can control the size of the window which is redrawn each time
+    the screen is cleared by giving window sizes as argument to the commands
+    which cause large screen motions: <b>: / ? [[ ]] ^F ^B ` &#x00B4;</b> Thus
+    if you are searching for a particular instance of a common string in a file
+    you can precede the first search command by a small number, say 3, and the
+    editor will draw three line windows around each instance of the string which
+    it locates.</p>
+<p class="Pp">You can easily expand or contract the window, placing the current
+    line as you choose, by giving a number on a <b>z</b> command, after the
+    <b>z</b> and before the following RETURN, <b>.</b> or <b>-</b>. Thus the
+    command <b>z5.</b> redraws the screen with the current line in the center of
+    a five line window.+ + Note that the command <b>5z.</b> has an entirely
+    different effect, placing line 5 in the center of a new window.</p>
+<p class="Pp">If the editor is redrawing or otherwise updating large portions of
+    the display, you can interrupt this updating by hitting a DEL or RUB as
+    usual. If you do this you may partially confuse the editor about what is
+    displayed on the screen. You can still edit the text on the screen if you
+    wish; clear up the confusion by hitting a <b>^L</b>; or move or search
+    again, ignoring the current state of the display.</p>
+<p class="Pp">See section 7.8 on <i>open</i> mode for another way to use the
+    <i>vi</i> command set on slow terminals. Options, set, and editor startup
+    files</p>
+<p class="Pp">The editor has a set of options, some of which have been mentioned
+    above. The most useful options are given in the following table.</p>
+<table class="tbl">
+  <tr style="border-bottom-style: solid;">
+    <td><b>Name</b></td>
+    <td><b>Default</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td>autoindent</td>
+    <td>noai</td>
+    <td>Supply indentation automatically</td>
+  </tr>
+  <tr>
+    <td>beautify</td>
+    <td>bf</td>
+    <td>Discard nonprinting characters in inserts</td>
+  </tr>
+  <tr>
+    <td>ignorecase</td>
+    <td>noic</td>
+    <td>Ignore case in searching</td>
+  </tr>
+  <tr>
+    <td>lisp</td>
+    <td>nolisp</td>
+    <td><b>( { ) }</b> commands deal with S-expressions</td>
+  </tr>
+  <tr>
+    <td>list</td>
+    <td>nolist</td>
+    <td>Tabs print as ^I; end of lines marked with $</td>
+  </tr>
+  <tr>
+    <td>magic</td>
+    <td>nomagic</td>
+    <td>The characters . [ and * are special in scans</td>
+  </tr>
+  <tr>
+    <td>number</td>
+    <td>nonu</td>
+    <td>Lines are displayed prefixed with line numbers</td>
+  </tr>
+  <tr>
+    <td>paragraphs</td>
+    <td>para=IPLPPPQPbp</td>
+    <td>Macro names which start paragraphs</td>
+  </tr>
+  <tr>
+    <td>redraw</td>
+    <td>nore</td>
+    <td>Simulate a smart terminal on a dumb one</td>
+  </tr>
+  <tr>
+    <td>sections</td>
+    <td>sect=NHSH</td>
+    <td>Macro names which start new sections</td>
+  </tr>
+  <tr>
+    <td>shiftwidth</td>
+    <td>sw=8</td>
+    <td>Shift distance for &lt;, &gt; and input <b>^D</b> and <b>^T</b></td>
+  </tr>
+  <tr>
+    <td>showmatch</td>
+    <td>nosm</td>
+    <td>Show matching <b>(</b> or <b>{</b> as <b>)</b> or <b>}</b> is typed</td>
+  </tr>
+  <tr>
+    <td>slowopen</td>
+    <td>slow</td>
+    <td>Postpone display updates during inserts</td>
+  </tr>
+  <tr>
+    <td>wrapscan</td>
+    <td>ws</td>
+    <td>Search around end of buffer if string not found</td>
+  </tr>
+  <tr>
+    <td>wrapmargin</td>
+    <td>wm=0</td>
+    <td>Split lines automatically at space near right margin</td>
+  </tr>
+</table>
+<p class="Pp">The options are of three kinds: numeric options, string options,
+    and toggle options. You can set numeric and string options by a statement of
+    the form <b>set</b> <i>opt</i><b>=</b><i>val</i> and toggle options can be
+    set or unset by statements of one of the forms <b>set</b> <i>opt</i>
+    <b>set</b> <b>no</b><i>opt</i> These statements can be placed in a file
+    `.exrc' in your HOME directory, or given while you are running <i>vi</i> by
+    preceding them with a <b>:</b> and following them with a ESC.</p>
+<p class="Pp">You can get a list of all options which you have changed by the
+    command <b>:set</b>ESC, or the value of a single option by the command
+    <b>:set</b> <i>opt</i><b>?</b>ESC. Recovering lost lines</p>
+<p class="Pp">You might have a serious problem if you delete a number of lines
+    and then regret that they were deleted. Despair not, the editor saves the
+    last 9 deleted blocks of text in a set of numbered registers 1-9. You can
+    get the <i>n</i>'th previous deleted text back in your file by the command
+    &quot;<i>n</i><b>p</b>. The &quot; here says that a buffer name is to
+    follow, <i>n</i> is the number of the buffer you wish to try (use the number
+    1 for now), and <b>p</b> is the put command, which puts text in the buffer
+    after the cursor. If this doesn't bring back the text you wanted, hit
+    <b>u</b> to undo this and then <b>.</b> (period) to repeat the put command.
+    In general the <b>.</b> command will repeat the last change you made. As a
+    special case, when the last command refers to a numbered text buffer, the
+    <b>.</b> command increments the number of the buffer before repeating the
+    command. Thus a sequence of the form <b>&quot;1pu.u.u.</b> will, if repeated
+    long enough, show you all the deleted text which has been saved for you. You
+    can omit the <b>u</b> commands here to gather up all this text in the
+    buffer, or stop after any <b>.</b> command to keep just the then recovered
+    text. The command <b>P</b> can also be used rather than <b>p</b> to put the
+    recovered text before rather than after the cursor. Recovering lost
+  files</p>
+<p class="Pp">If the system crashes, you can recover the work you were doing to
+    within a few changes. You will normally receive mail when you next login
+    giving you the name of the file which has been saved for you. You should
+    then change to the directory where you were when the system crashed and give
+    a command of the form: % <b>vi -r</b> <i>name</i> replacing <i>name</i> with
+    the name of the file which you were editing. This will recover your work to
+    a point near where you left off.+ + In rare cases, some of the lines of the
+    file may be lost. The editor will give you the numbers of these lines and
+    the text of the lines will be replaced by the string `LOST'. These lines
+    will almost always be among the last few which you changed. You can either
+    choose to discard the changes which you made (if they are easy to remake) or
+    to replace the few lost lines by hand.</p>
+<p class="Pp">You can get a listing of the files which are saved for you by
+    giving the command: % <b>vi -r</b> If there is more than one instance of a
+    particular file saved, the editor gives you the newest instance each time
+    you recover it. You can thus get an older saved copy back by first
+    recovering the newer copies. Continuous text input</p>
+<p class="Pp">When you are typing in large amounts of text it is convenient to
+    have lines broken near the right margin automatically. You can cause this to
+    happen by giving the command <b>:se wm=12</b>ESC. This establishes the last
+    12 columns of your screen as a margin in which a space which you input in
+    text will automatically force a line break.</p>
+<p class="Pp">If the editor breaks a input line and you wish to put it back
+    together you can tell it to join the lines with <b>J</b>. You can give
+    <b>J</b> a count of the number of lines to be joined as in <b>3J</b> to join
+    3 lines. The editor supplies white space, if appropriate, at the juncture of
+    the joined lines, and leaves the cursor at this white space. You can kill
+    the white space with <b>x</b> if you don't want it. Features for editing
+    programs</p>
+<p class="Pp">The editor has a number of commands for editing programs. The
+    thing that most distinguishes editing of programs from editing of text is
+    the desirability of maintaining an indented structure to the body of the
+    program. The editor has a <i>autoindent</i> facility for helping you
+    generate correctly indented programs.</p>
+<p class="Pp">To enable this facility you can give the command <b>:se ai</b>ESC.
+    Now try opening a new line with <b>o</b> and type some characters on the
+    line after a few tabs. If you now start another line, notice that the editor
+    supplies white space at the beginning of the line to line it up with the
+    previous line. You cannot backspace over this indentation, but you can use
+    <b>^D</b> key to backtab over the supplied indentation.</p>
+<p class="Pp">Each time you type <b>^D</b> you back up one position, normally to
+    an 8 column boundary. This amount is settable; the editor has an option
+    called <i>shiftwidth</i> which you can set to change this value. Try giving
+    the command <b>:se sw=4</b>ESC and then experimenting with autoindent
+  again.</p>
+<p class="Pp">The character <b>^T</b> acts as a forward tab, much like the TAB
+    (<b>^I</b>) character does, except it aligns to the next <i>shiftwidth</i>
+    boundary. If you have set <i>sw</i> to 4, try creating a new line and
+    hitting a few <b>^T</b>'s to see how this works. This is useful if your
+    indenting style does not use a full physical tab stop at each level of
+    logical indentation of the program.</p>
+<p class="Pp">For shifting lines in the program left and right, there are
+    operators <b>&lt;</b> and <b>&gt;.</b> These shift the lines you specify
+    right or left by one <i>shiftwidth.</i> Try <b>&lt;&lt;</b> and
+    <b>&gt;&gt;</b> which shift one line left or right, and <b>&lt;L</b> and
+    <b>&gt;L</b> shifting the rest of the display left and right.</p>
+<p class="Pp">If you have a complicated expression and wish to see how the
+    parentheses match, put the cursor at a left or right parenthesis and hit
+    <b>%</b>. This will show you the matching parenthesis. This works also for
+    braces { and }.</p>
+<p class="Pp">If you are editing C programs, you can use the <b>[[</b> and
+    <b>]]</b> keys to advance or retreat to a line starting with a <b>{</b>,
+    i.e. a function declaration at a time. When <b>]]</b> is used with an
+    operator it stops after a line which starts with <b>}</b>; this is sometimes
+    useful with <b>y]]</b>. Filtering portions of the buffer</p>
+<p class="Pp">You can run system commands over portions of the buffer using the
+    operator <b>!</b>. You can use this to sort lines in the buffer, or to
+    reformat portions of the buffer with a pretty-printer. Try typing in a list
+    of random words, one per line and ending them with a blank line. Back up to
+    the beginning of the list, and then give the command <b>!}sort</b>ESC. This
+    says to sort the next paragraph of material, and the blank line ends a
+    paragraph. Commands for editing LISP</p>
+<p class="Pp">If you are editing a LISP program you should set the option
+    <i>lisp</i> by doing <b>:se&#x00A0;lisp</b>ESC. This changes the <b>(</b>
+    and <b>)</b> commands to move backward and forward over s-expressions. The
+    <b>{</b> and <b>}</b> commands are like <b>(</b> and <b>)</b> but don't stop
+    at atoms. These can be used to skip to the next list, or through a comment
+    quickly.</p>
+<p class="Pp">The <i>autoindent</i> option works differently for LISP, supplying
+    indent to align at the first argument to the last open list. If there is no
+    such argument then the indent is two spaces more than the last level.</p>
+<p class="Pp">There is another option which is useful for typing in LISP, the
+    <i>showmatch</i> option. Try setting it with <b>:se sm</b>ESC and then try
+    typing a `(' some words and then a `)'. Notice that the cursor shows the
+    position of the `(' which matches the `)' briefly. This happens only if the
+    matching `(' is on the screen, and the cursor stays there for at most one
+    second.</p>
+<p class="Pp">The editor also has an operator to realign existing lines as
+    though they had been typed in with <i>lisp</i> and <i>autoindent</i> set.
+    This is the <b>=</b> operator. Try the command <b>=%</b> at the beginning of
+    a function. This will realign all the lines of the function declaration.</p>
+<p class="Pp">When you are editing LISP,, the <b>[[</b> and ]] advance and
+    retreat to lines beginning with a <b>(</b>, and are useful for dealing with
+    entire function definitions. Abbreviations</p>
+<p class="Pp">The editor has a number of short commands which abbreviate longer
+    commands which we have introduced here. You can find these commands easily
+    on the quick reference card. They often save a bit of typing and you can
+    learn them as convenient. Nitty-gritty details Line representation in the
+    display</p>
+<p class="Pp">The editor folds long logical lines onto many physical lines in
+    the display. Commands which advance display lines advance logical lines and
+    will skip over all the segments of a line in one motion. The command
+    <b>|</b> moves the cursor to a specific column, and may be useful for
+    getting near the middle of a long line to split it in half. Try <b>80|</b>
+    on a line which is more than 80 columns long.+ + You can make long lines
+    very easily by using <b>J</b> to join together short lines.</p>
+<p class="Pp">The editor only puts full lines on the display; if there is not
+    enough room on the display to fit a logical line, the editor leaves the
+    physical lines empty, placing only an @ on the line as a place holder. When
+    you delete lines on a dumb terminal, the editor will often just clear the
+    lines to @ to save time (rather than rewriting the rest of the screen.) You
+    can always maximize the information on the screen by giving the <b>^R</b>
+    command.</p>
+<p class="Pp">If you wish, you can have the editor place line numbers before
+    each line on the display. Give the command <b>:se nu</b>ESC to enable this,
+    and the command <b>:se nonu</b>ESC to turn it off. You can have tabs
+    represented as <b>^I</b> and the ends of lines indicated with `$' by giving
+    the command <b>:se list</b>ESC; <b>:se nolist</b>ESC turns this off.</p>
+<p class="Pp">Finally, lines consisting of only the character `~' are displayed
+    when the last line in the file is in the middle of the screen. These
+    represent physical lines which are past the logical end of file. Counts</p>
+<p class="Pp">Most <i>vi</i> commands will use a preceding count to affect their
+    behavior in some way. The following table gives the common ways in which the
+    counts are used:</p>
+<table class="tbl">
+  <tr>
+    <td>new window size</td>
+    <td><b>: / ? [[ ]] ^F ^B ` &#x00B4;</b></td>
+  </tr>
+  <tr>
+    <td>scroll amount</td>
+    <td><b>^D ^U</b></td>
+  </tr>
+  <tr>
+    <td>line/column number</td>
+    <td><b>z G |</b></td>
+  </tr>
+  <tr>
+    <td>replicate insert</td>
+    <td><b>a i A I</b></td>
+  </tr>
+  <tr>
+    <td>repeat effect</td>
+    <td><b></b>most of the rest<b></b></td>
+  </tr>
+</table>
+<p class="Pp">The editor maintains a notion of the current default window size.
+    On terminals which run at speeds greater than 1200 baud (faster than 120
+    characters per second) the editor uses the full terminal screen. On
+    terminals which are no faster than 1200 baud (dialup lines are in this
+    group) the editor uses half of the screen as the default window size.</p>
+<p class="Pp">This size is the size used when the editor clears and refills the
+    screen after a search or other motion moves far from the edge of the current
+    window. The commands which take a new window size as count all often cause
+    the screen to be redrawn. If you anticipate this, but do not need as large a
+    window as you are currently using, you may wish to change the screen size by
+    specifying the new size before these commands. In any case, the number of
+    lines used on the screen will expand if you move off the top with a <b>-</b>
+    or similar command or off the bottom with a command such as RETURN or
+    <b>^D</b>. The window will revert to the last specified size the next time
+    it is cleared and refilled.+ + But not by a <b>^L</b> which just redraws the
+    screen as it is.</p>
+<p class="Pp">The scroll commands <b>^D</b> and <b>^U</b> likewise remember the
+    amount of scroll last specified, using half the basic window size initially.
+    The simple insert commands use a count to specify a repetition of the
+    inserted text. Thus <b>10a+----</b>ESC will insert a grid-like string of
+    text. A few commands also use a preceding count as a line or column
+  number.</p>
+<p class="Pp">Except for a few commands which ignore any counts (such as
+    <b>^R</b>), the rest of the editor commands use a count to indicate a simple
+    repetition of their effect. Thus <b>5w</b> advances five words on the
+    current line, while <b>5</b>RETURN advances five lines. A very useful
+    instance of a count as a repetition is a count given to the <b>.</b>
+    command, which repeats the last changing command. If you do <b>dw</b> and
+    then <b>3.</b>, you will delete first one and then three words. You can then
+    delete two more words with <b>2.</b>. More file manipulation commands</p>
+<p class="Pp">The following table lists the file manipulation commands which you
+    can use when you are in <i>vi.</i></p>
+<table class="tbl">
+  <tr>
+    <td><b>:w</b></td>
+    <td>write back changes</td>
+  </tr>
+  <tr>
+    <td><b>:wq</b></td>
+    <td>write and quit</td>
+  </tr>
+  <tr>
+    <td><b>:q</b></td>
+    <td>quit</td>
+  </tr>
+  <tr>
+    <td><b>:q!</b></td>
+    <td>quit, discarding changes</td>
+  </tr>
+  <tr>
+    <td><b>:e </b><i>name</i><b></b></td>
+    <td>edit file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>:e!</b></td>
+    <td>reedit, discarding changes</td>
+  </tr>
+  <tr>
+    <td><b>:e + </b><i>name</i><b></b></td>
+    <td>edit, starting at end</td>
+  </tr>
+  <tr>
+    <td><b>:e +</b><i>n</i><b></b></td>
+    <td>edit, starting at line <i>n</i></td>
+  </tr>
+  <tr>
+    <td><b>:e #</b></td>
+    <td>edit alternate file</td>
+  </tr>
+  <tr>
+    <td><b>:w </b><i>name</i><b></b></td>
+    <td>write file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>:w! </b><i>name</i><b></b></td>
+    <td>overwrite file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>:</b><i>x,y</i><b>w </b><i>name</i><b></b></td>
+    <td>write lines <i>x</i> through <i>y</i> to <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>:r </b><i>name</i><b></b></td>
+    <td>read file <i>name</i> into buffer</td>
+  </tr>
+  <tr>
+    <td><b>:r !</b><i>cmd</i><b></b></td>
+    <td>read output of <i>cmd</i> into buffer</td>
+  </tr>
+  <tr>
+    <td><b>:n</b></td>
+    <td>edit next file in argument list</td>
+  </tr>
+  <tr>
+    <td><b>:n!</b></td>
+    <td>edit next file, discarding changes to current</td>
+  </tr>
+  <tr>
+    <td><b>:n </b><i>args</i><b></b></td>
+    <td>specify new argument list</td>
+  </tr>
+  <tr>
+    <td><b>:ta </b><i>tag</i><b></b></td>
+    <td>edit file containing tag <i>tag</i>, at <i>tag</i></td>
+  </tr>
+</table>
+All of these commands are given followed by an ESC or RETURN. The most basic
+  commands are <b>:w</b>, <b>:wq</b>, <b>:q</b> and <b>:e</b>. A normal editing
+  session on a single file will end with a <b>:wq</b> command. If you are
+  editing for a long period of time you can give <b>:w</b> commands occasionally
+  after major amounts of editing, and then finish with a <b>:wq</b>. When you
+  edit more than one file, you can finish with one with a <b>:w</b> and start
+  editing a new file by giving a <b>:e</b> command.
+<p class="Pp">If you make changes to the editor's copy of a file, but do not
+    wish to write them back, then you must give an <b>!</b> after the command
+    you would otherwise use; this forces the editor to discard any changes you
+    have made. Use this carefully.</p>
+<p class="Pp">The <b>:e</b> command can be given a <b>+</b> argument to start at
+    the end of the file, or a <b>+</b><i>n</i> argument to start at line
+    <i>n</i>. In forming new names to the <b>e</b> command, you can use the
+    character <b>%</b> which is replaced by the current file name, or the
+    character <b>#</b> which is replaced by the alternate file name. The
+    alternate file name is generally the last name you typed other than the
+    current file. Thus if you try to do a <b>:e</b> and get a diagnostic that
+    you haven't written the file, you can give a <b>:w</b> command and then a
+    <b>:e #</b> command to redo the previous <b>:e</b>.</p>
+<p class="Pp">You can write part of the buffer to a file by finding out the
+    lines that bound the range to be written using <b>^G</b>, and giving these
+    numbers after the <b>:</b> and before the <b>w</b>, separated by <b>,</b>'s.
+    You can also mark these lines with <b>m</b> and then use an address of the
+    form <b>&#x00B4;</b><i>x</i><b>,</b><b>&#x00B4;</b><i>y</i> on the <b>w</b>
+    command here.</p>
+<p class="Pp">You can read another file into the buffer after the current line
+    by using the <b>:r</b> command. To read before the current line put a
+    <b>-</b> between the <b>:</b> and the <b>r</b>. You can similarly read in
+    the output from a command, just use <b>!</b><i>cmd</i> instead of a file
+    name.</p>
+<p class="Pp">If you wish to edit a set of files in succession, you can give all
+    the names on the command line, and then edit each one in turn using the
+    command <b>:n</b>. It is also possible to respecify the list of files to be
+    edited by giving the <b>:n</b> command a list of file names, or a pattern to
+    be expanded as you would have given it on the initial <i>vi</i> command.</p>
+<p class="Pp">If you are editing large programs, you will find the <b>:ta</b>
+    command very useful. It utilizes a data base of function names and their
+    locations, which can be created by programs such as <i>ctags,</i> to quickly
+    find a function whose name you give. If the <b>:ta</b> command will require
+    the editor to switch files, then you must <b>:w</b> or abandon any changes
+    before switching. You can repeat the <b>:ta</b> command without any
+    arguments to look for the same tag again. More about searching for
+  strings</p>
+<p class="Pp">When you are searching for strings in the file with <b>/</b> and
+    <b>?</b>, the editor normally places you at the next or previous line in the
+    file containing the string. If you are using an operator such as <b>d</b>,
+    <b>c</b> or <b>y</b>, then you may well wish to affect lines up to the line
+    before the line containing the pattern. You can give a search of the form
+    <b>/</b><i>pat</i><b>/-</b><i>n</i> to refer to the <i>n</i>'th line before
+    the next line containing <i>pat</i>, or you can use <b>+</b> instead of
+    <b>-</b> to refer to the lines after the one containing <i>pat</i>.</p>
+<p class="Pp">You can have the editor ignore the case of words in the searches
+    it does by giving the command <b>:se ic</b>ESC. The command <b>:se
+    noic</b>ESC turns this off.</p>
+<p class="Pp">Strings given to searches may actually be regular expressions.
+    When you are running <i>vi,</i> the editor normally disables the option
+    <i>magic,</i> so that only the characters <b>^</b> and <b>$</b> are special
+    here. The character <b>\</b> is also special (as it is most everywhere in
+    the system), and may be used to get at the an extended pattern matching
+    facility. It is also necessary to use a \ before a <b>/</b> in a forward
+    scan or a <b>?</b> in a backward scan. The following table gives these
+    extended forms.</p>
+<table class="tbl">
+  <tr>
+    <td>&#x2191;</td>
+    <td>at beginning of pattern, matches beginning of line</td>
+  </tr>
+  <tr>
+    <td>$</td>
+    <td>at end of pattern, matches end of line</td>
+  </tr>
+  <tr>
+    <td>\<b>.</b></td>
+    <td>matches any character</td>
+  </tr>
+  <tr>
+    <td>\&lt;</td>
+    <td>matches the beginning of a word</td>
+  </tr>
+  <tr>
+    <td>\&gt;</td>
+    <td>matches the end of a word</td>
+  </tr>
+  <tr>
+    <td>\[<i>str</i>]</td>
+    <td>matches any single character in <i>str</i></td>
+  </tr>
+  <tr>
+    <td>\[&#x2191;<i>str</i>]</td>
+    <td>matches any single character not in <i>str</i></td>
+  </tr>
+  <tr>
+    <td>\[<i>x</i>-<i>y</i>]</td>
+    <td>matches any character between <i>x</i> and <i>y</i></td>
+  </tr>
+  <tr>
+    <td>\*</td>
+    <td>matches any number of the preceding pattern</td>
+  </tr>
+</table>
+If you intend to use these mechanisms a lot, you can give the command <b>:se
+  magic</b>ESC which allows the <b>. [</b> and <b>*</b> primitives to be given
+  without a preceding \; to include these characters in a pattern while in this
+  mode, give them preceded by a \. If you wish to use the patterns regularly in
+  <i>vi,</i> you can set the option <i>magic</i> in your `.exrc' file; see
+  section 6.2 for details. More about input mode
+<p class="Pp">There are a number of characters which you can use to make
+    corrections during input mode. These are summarized in the following
+  table.</p>
+<table class="tbl">
+  <tr>
+    <td><b>^H</b></td>
+    <td>deletes the last input character</td>
+  </tr>
+  <tr>
+    <td><b>^W</b></td>
+    <td>deletes the last input word, defined as by <b>b</b></td>
+  </tr>
+  <tr>
+    <td><b>erase</b></td>
+    <td>your erase character, same as <b>^H</b></td>
+  </tr>
+  <tr>
+    <td><b>kill</b></td>
+    <td>your kill character, deletes the input on this line</td>
+  </tr>
+  <tr>
+    <td><b>\</b></td>
+    <td>escapes a following <b>^H</b> and your erase and kill</td>
+  </tr>
+  <tr>
+    <td><b>ESC</b></td>
+    <td>ends an insertion</td>
+  </tr>
+  <tr>
+    <td><b>DEL</b></td>
+    <td>interrupts an insertion, terminating it abnormally</td>
+  </tr>
+  <tr>
+    <td><b>^D</b></td>
+    <td>backtabs over <i>autoindent</i></td>
+  </tr>
+  <tr>
+    <td><b>0^D</b></td>
+    <td>kills all the <i>autoindent</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2191;^D</b></td>
+    <td>same as <b>0^D</b>, but restores indent next line</td>
+  </tr>
+  <tr>
+    <td><b>^Q</b></td>
+    <td>quotes the next non-printing character into the file</td>
+  </tr>
+  <tr>
+    <td><b>^T</b></td>
+    <td>is a <i>shiftwidth</i> forward tab</td>
+  </tr>
+</table>
+<p class="Pp">The most usual way of making corrections to input is by typing
+    <b>^H</b> to correct a single character, or by typing one or more
+    <b>^W</b>'s to back over incorrect words. If you use <b>#</b> as your erase
+    character in the normal system, it will work like <b>^H</b>.</p>
+<p class="Pp">Your system kill character, normally <b>@</b> or <b>^X</b> will
+    erase all the input you have given on the current line. In general, you can
+    neither erase input back around a line boundary nor can you erase characters
+    which you did not insert with this insertion command. To make corrections on
+    the previous line after a new line has been started you can hit ESC to end
+    the insertion, move over and make the correction, and then return to where
+    you were to continue. The command <b>A</b> which appends at the end of the
+    current line is often useful for continuing.</p>
+<p class="Pp">If you wish to type in your erase or kill character (say # or @)
+    then you must precede it with a <b>\</b>, just as you would do at the normal
+    system command level. A more general way of typing non-printing characters
+    into the file is to precede them with a <b>^Q</b>. The <b>^Q</b> echoes as a
+    <b>^</b> character on which the cursor rests. This indicates that the editor
+    expects you to type a control character. In fact you may type any character
+    and it will be inserted into the file at that point.* * This is not quite
+    true. The implementation of the editor does not allow the NULL (<b>^@</b>)
+    character to appear in files. Also the LF (linefeed or <b>^J</b>) character
+    is used by the editor to separate lines in the file, so it cannot appear in
+    the middle of a line. You can insert any other character, however, if you
+    wait for the editor to echo the <b>^</b> before you type the character. In
+    fact, the editor will treat a following letter as a request for the
+    corresponding control character. This is the only way to type <b>^S</b>,
+    since the system normally uses <b>^S</b> to suspend output and never gives
+    the <b>^S</b> to the editor to process.</p>
+<p class="Pp">If you are using <i>autoindent</i> you can backtab over the indent
+    which it supplies by typing a <b>^D</b>. This backs up to a
+    <i>shiftwidth</i> boundary; similarly <b>^T</b> will tab over to a
+    <i>shiftwidth</i> boundary. Both of these work only immediately after the
+    supplied <i>autoindent</i>.</p>
+<p class="Pp">When you are using <i>autoindent</i> you may wish to place a label
+    at the left margin of a line. The way to do this easily is to type
+    <b>&#x2191;</b> and then <b>^D</b>. The editor will move the cursor to the
+    left margin for one line, and restore the previous indent on the next. You
+    can also type a <b>0</b> followed immediately by a <b>^D</b> if you wish to
+    kill all the indent and not have it come back on the next line. Upper case
+    only terminals</p>
+<p class="Pp">If your terminal has only upper case, you can still use <i>vi</i>
+    by using the normal system convention for typing on such a terminal.
+    Characters which you normally type are converted to lower case, and you can
+    type upper case letters by preceding them with a \. The characters { ~ } | `
+    are not available on such terminals, but you can escape them as \( \&#x2191;
+    \) \! \&#x00B4;. These characters are represented on the display in the same
+    way they are typed.++ ++ The \ character you give will not echo until you
+    type another key. Vi and ex</p>
+<p class="Pp"><i>Vi</i> is actually one mode of editing within the editor
+    <i>ex.</i> When you are running <i>vi</i> you can escape to the line
+    oriented editor of <i>ex</i> by giving the command <b>Q</b>. All of the
+    <b>:</b> commands which were introduced above are available in <i>ex.</i>
+    Just give them without the <b>:</b> and follow them with a RETURN.</p>
+<p class="Pp">In rare instances, an internal error may occur in <i>vi.</i> In
+    this case you will get a diagnostic and be left in the command mode of
+    <i>ex.</i> You can then save your work and quit if you wish by giving a
+    command <b>wq</b> after the <b>:</b> which <i>ex</i> prompts you with, or
+    you can reenter <i>vi</i> by giving <i>ex</i> a <i>vi</i> command.</p>
+<p class="Pp">There are a number of things which you can do more easily in
+    <i>ex</i> than in <i>vi.</i> Systematic changes in line oriented material
+    are particularly easy. You can read the advanced editing documents for the
+    editor <i>ed</i> to find out a lot more about this style of editing.
+    Experienced users often mix their use of <i>ex</i> command mode and
+    <i>vi</i> command mode to speed the work they are doing. Open mode: vi on
+    hardcopy terminals and ``glass tty's''</p>
+<p class="Pp">If you are on a hardcopy terminal or a terminal which does not
+    have a cursor which can move off the bottom line, you can still use the
+    command set of <i>vi,</i> but in a different mode. When you give a <i>vi</i>
+    command, the editor will tell you that it is using <i>open</i> mode. This
+    name comes from the <i>open</i> command in <i>ex,</i> which is used to get
+    into the same mode.</p>
+<p class="Pp">The only difference between <i>visual</i> mode and <i>open</i>
+    mode is the way in which the text is displayed.</p>
+<p class="Pp">In <i>open</i> mode the editor uses a single line window into the
+    file, and moving backward and forward in the file causes new lines to be
+    displayed, always below the current line. Two commands of <i>vi</i> work
+    differently in <i>open:</i> <b>z</b> and <b>^R</b>. The <b>z</b> command
+    does not take parameters, but rather draws a window of context around the
+    current line and then returns you to the current line.</p>
+<p class="Pp">If you are on a hardcopy terminal, the <b>^R</b> command will
+    retype the current line. On such terminals, the editor normally uses two
+    lines to represent the current line. The first line is a copy of the line as
+    you started to edit it, and you work on the line below this line. When you
+    delete characters, the editor types a number of \'s to show you the
+    characters which are deleted. The editor also reprints the current line soon
+    after such changes so that you can see what the line looks like again.</p>
+<p class="Pp">It is sometimes useful to use this mode on very slow terminals
+    which can support <i>vi</i> in the full screen mode. You can do this by
+    entering <i>ex</i> and using an <i>open</i> command.</p>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">Thu Apr 19 23:25:43 PST 1979</td>
+    <td class="foot-os">2BSD</td>
+  </tr>
+</table>
+</body>
+</html>

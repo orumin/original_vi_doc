@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>vi.chars</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">vi.chars</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">vi.chars</td>
+  </tr>
+</table>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="Appendix:_character_functions"><a class="permalink" href="#Appendix:_character_functions">Appendix:
+  character functions</a></h1>
+<p class="Pp">This appendix gives the uses the editor makes of each character.
+    The characters are presented in their order in the ASCII character set:
+    Control characters come first, then most special characters, then the
+    digits, upper and then lower case characters.</p>
+<p class="Pp">For each character we tell a meaning it has as a command and any
+    meaning it has during an insert. If it has only meaning as a command, then
+    only this is discussed. Section numbers in parentheses indicate where the
+    character is discussed; a `f' after the section number means that the
+    character is mentioned in a footnote.</p>
+<dl class="Bl-tag">
+  <dt><b>^@</b></dt>
+  <dd>Not a command character. If typed as the first character of an insertion
+      it is replaced with the last text inserted, and the insert terminates.
+      Only 128 characters are saved from the last insert; if more characters
+      were inserted the mechanism is not available. A <b>^@</b> cannot be part
+      of the file due to the editor implementation (7.5f).</dd>
+  <dt><b>^A</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^B</b></dt>
+  <dd>Backward window. A count specifies a new window size. Two lines of
+      continuity are kept if possible (2.1, 6.1, 7.2).</dd>
+  <dt><b>^C</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^D</b></dt>
+  <dd>As a command, scrolls down a half-window of text. A count gives the number
+      of (logical) lines to scroll, and is remembered for future <b>^D</b> and
+      <b>^U</b> commands (2.1, 7.2). During an insert, backtabs over
+      <i>autoindent</i> white space at the beginning of a line (6.6, 7.5); this
+      white space cannot be backspaced over.</dd>
+  <dt><b>^E</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^F</b></dt>
+  <dd>Forward window. A count specifies a new window size. Two lines of
+      continuity are kept if possible (2.1, 6.1, 7.2).</dd>
+  <dt><b>^G</b></dt>
+  <dd>Equivalent to <b>:f</b>ESC, printing the current file, whether it has been
+      modified, the current line number and the number of lines in the file, and
+      the percentage of the way through the file that you are. A count specifies
+      a new default window size (2.2).</dd>
+  <dt><b>^H (</b>BS<b>)</b></dt>
+  <dd>Backspaces one character on the current line. With a count backs up that
+      many characters. The character <b>h</b> is a synonym for <b>^H</b> which
+      is convenient on terminals without backspace keys (3.2). During an insert,
+      eliminates the last input character, backing over it but not erasing it;
+      it remains so you can see what you typed if you wish to type something
+      only slightly different (3.1, 7.5).</dd>
+  <dt><b>^I&#x00A0;(</b>TAB<b>)</b></dt>
+  <dd>Not a command character. When inserted it prints as some number of spaces.
+      When the cursor is at a tab character it rests at the last of the spaces
+      which represent the tab. The spacing of tabstops is controlled by the
+      <i>tabstop</i> option (4.1, 6.6).</dd>
+  <dt><b>^J&#x00A0;(</b>LF<b>)</b></dt>
+  <dd>A linefeed advances to the next line, in the same column or as near this
+      column as possible. A sequence of linefeeds will attempt to move
+      vertically and stay in the original position horizontally. A count causes
+      an advance over several lines (2.3).</dd>
+  <dt><b>^K</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^L</b></dt>
+  <dd>The ASCII formfeed character, this causes the screen to be cleared and
+      redrawn. This is useful after a transmission error, if characters typed by
+      a program other than the editor scramble the screen, or after output is
+      stopped by an interrupt (5.4, 7.2f).</dd>
+  <dt><b>^M&#x00A0;(</b>RETURN<b>)</b></dt>
+  <dd>A carriage return advances to the next line, at the first non-white
+      position in the line. Given a count, it advances that many lines (2.3).
+      During an insert, a RETURN causes the insert to continue onto another line
+      (3.1).</dd>
+  <dt><b>^N</b></dt>
+  <dd>Advances to the next line, in the same column (see <b>^J</b> for more
+      details on how this works). A count advances that many lines (2.3).</dd>
+  <dt><b>^O</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^P</b></dt>
+  <dd>Retreats to the previous line, in the same column (see <b>^J</b> for more
+      details). A count retreats that many lines (2.3).</dd>
+  <dt><b>^Q</b></dt>
+  <dd>Not a command character. During an insert, quotes the next character so
+      that it is possible to insert non-printing and special characters into the
+      file (4.2, 7.5).</dd>
+  <dt><b>^R</b></dt>
+  <dd>Redraws the current screen, eliminating logical lines not corresponding to
+      physical lines (lines with only a single @ character on them). On hardcopy
+      terminals in <i>open</i> mode, retypes the current line (5.4, 7.2,
+    7.8).</dd>
+  <dt><b>^S</b></dt>
+  <dd>Suspends output temporarily; another <b>^S</b> restarts it. This works at
+      all times (7.5f).</dd>
+  <dt><b>^T</b></dt>
+  <dd>Not a command character. During an insert, with <i>autoindent</i> set and
+      at the beginning of the line, inserts <i>shiftwidth</i> white space (6.6,
+      7.5).</dd>
+  <dt><b>^U</b></dt>
+  <dd>Scrolls the screen up, inverting <b>^D</b> which scrolls down. Counts work
+      as they do for <b>^D</b>, and the previous scroll amount is common to
+      both. On a dumb terminal, <b>^U</b> will often necessitate clearing and
+      redrawing the screen further back in the file (2.1, 7.2).</dd>
+  <dt><b>^V</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^W</b></dt>
+  <dd>Not a command character. During an insert, backs up as <b>b</b> would in
+      command mode; the deleted characters remain on the display (see <b>^H</b>)
+      (7.5).</dd>
+  <dt><b>^X</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^Y</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^Z</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^[&#x00A0;(</b>ESC<b>)</b></dt>
+  <dd>Cancels a partially formed command, such as a <b>z</b> when no following
+      character has yet been given; terminates inputs on the last line (read by
+      commands such as <b>: /</b> and <b>?</b>); ends insertions of new text
+      into the buffer. If an ESC is given when quiescent in command state, the
+      editor rings the bell or flashes the screen. You can thus hit ESC if you
+      don't know what is happening till the editor rings the bell. If you don't
+      know if you are in insert mode you can type ESC<b>a</b>, and then material
+      to be input; the material will be inserted correctly whether or not you
+      were in insert mode when you started (1.5, 3.1, 7.5).</dd>
+  <dt><b>^\</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^]</b></dt>
+  <dd>Searches for the word which is after the cursor as a tag. Equivalent to
+      typing <b>:ta</b>, this word, and then an ESC. Mnemonically, this command
+      is ``go right to'' (7.3).</dd>
+  <dt><b>^&#x2191;</b></dt>
+  <dd>Equivalent to <b>:e #</b>ESC, returning to the previous position in the
+      last edited file, or editing a file which you specified if you got a `No
+      write since last change diagnostic' and do not want to have to type the
+      file name again (7.3). (You have to do a <b>:w</b> before <b>^&#x2191;</b>
+      will work in this case. If you do not wish to write the file you should do
+      <b>:e!&#x00A0;#</b>ESC instead.)</dd>
+  <dt><b>^_</b></dt>
+  <dd>Unused.</dd>
+  <dt id="SPACE"><a class="permalink" href="#SPACE"><b></b>SPACE<b></b></a></dt>
+  <dd>Advances to the next character in the current line. With a count, advances
+      that many characters.</dd>
+  <dt><b>!</b></dt>
+  <dd>An operator, which processes lines from the buffer with reformatting
+      commands. Follow <b>!</b> with the object to be processed, and then the
+      command name terminated by ESC. Doubling <b>!</b> and preceding it by a
+      count causes count lines to be filtered; otherwise the count is passed on
+      to the object after the <b>!</b>. Thus <b>2!}</b><i>fmt</i>ESC reformats
+      the next two paragraphs by running them through the program <i>fmt</i>. If
+      you are working on LISP, the command <b>!%</b><i>grind</i>ESC, given at
+      the beginning of a function, will run the text of the function through the
+      LISP grinder (6.7, 7.3). To read a file or the output of a command into
+      the buffer use <b>:r</b> (7.3). To simply execute a command use <b>:!</b>
+      (7.3).</dd>
+  <dt><b>&quot;</b></dt>
+  <dd>Precedes a named buffer specification. There are named buffers <b>1-9</b>
+      used for saving deleted text and named buffers <b>a-z</b> into which you
+      can place text (4.3, 6.3)</dd>
+  <dt><b>#</b></dt>
+  <dd>Unused. If this is your erase character, it will delete the last character
+      you typed in input mode, and must be preceded with a <b>\</b> to insert
+      it, since it normally backs over the last input character you gave.</dd>
+  <dt><b>$</b></dt>
+  <dd>Moves to the end of the current line. If you <b>:se list</b>ESC, then the
+      end of each line will be shown by printing a <b>$</b> after the end of the
+      displayed text in the line. Given a count, advances to the count'th
+      following end of line; thus <b>2$</b> advances to the end of the following
+      line.</dd>
+  <dt><b>%</b></dt>
+  <dd>Moves to the parenthesis or brace <b>{ }</b> which balances the
+      parenthesis or brace at the current cursor position.</dd>
+  <dt><b>&amp;</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>&#x00B4;</b></dt>
+  <dd>When followed by a <b>&#x00B4;</b> returns to the previous context at the
+      beginning of a line. The previous context is set whenever the current line
+      is moved in a non-relative way. When followed by a letter
+      <b>a</b>-<b>z</b>, returns to the line which was marked with this letter
+      with a <b>m</b> command, at the first non-white character in the line. A
+      count before a <b>&#x00B4;</b> gives a new window size for the next screen
+      redraw (2.2, 5.3). When used with an operator such as <b>d</b>, the
+      operation takes place over complete lines; if you use <b>`</b>, the
+      operation takes place from the exact marked place to the current cursor
+      position within the line.</dd>
+  <dt><b>(</b></dt>
+  <dd>Retreats to the beginning of a sentence, or to the beginning of a LISP
+      s-expression if the <i>lisp</i> option is set. A sentence ends at a <b>.
+      !</b> or <b>?</b> which is followed by either the end of a line or by two
+      spaces. Any number of closing <b>) ] &quot;</b> and <b>&#x00B4;</b>
+      characters may appear after the <b>. !</b> or <b>?</b>, and before the
+      spaces or end of line. Sentences also begin at paragraph and section
+      boundaries (see <b>{</b> and <b>[[</b> below). A count advances that many
+      sentences (4.2, 6.8).</dd>
+  <dt><b>)</b></dt>
+  <dd>Advances to the beginning of a sentence. A count repeats the effect. See
+      <b>(</b> above for the definition of a sentence (4.2, 6.8).</dd>
+  <dt><b>*</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>+</b></dt>
+  <dd>Advances to the next line at the first non-white character. A count
+      repeats the effect. A RETURN is equivalent to a <b>+</b>. If the line
+      moved to is not on the screen, the screen is scrolled, or cleared and
+      redrawn if a large amount of scrolling would be necessary (2.3).</dd>
+  <dt><b>,</b></dt>
+  <dd>Reverse of the last <b>f F t</b> or <b>T</b> command, looking the other
+      way in the current line. Especially useful after hitting too many <b>;</b>
+      characters. A count repeats the search.</dd>
+  <dt><b>-</b></dt>
+  <dd>Retreats to the previous line at the first non-white character. This is
+      the inverse of <b>+</b> and RETURN. If the line moved to is not on the
+      screen, the screen is scrolled, or cleared and redrawn if this is not
+      possible. If a large amount of scrolling would be required the screen is
+      also cleared and redrawn, with the current line at the center (2.3).</dd>
+  <dt><b>.</b></dt>
+  <dd>Repeats the last command which changed the buffer. Especially useful when
+      deleting words or lines; you can delete some words/lines and then hit
+      <b>.</b> to delete more and more words/lines. Given a count, it passes it
+      on to the command being repeated. Thus after a <b>2dw</b>, <b>3.</b>
+      deletes three words (3.3, 6.3, 7.2, 7.4).</dd>
+  <dt><b>/</b></dt>
+  <dd>Reads a string from the last line on the screen, and scans forward for a
+      line containing this string. The normal input editing sequences may be
+      used during the input on the bottom line; an returns to command state
+      without ever searching. The search begins when you hit ESC to terminate
+      the pattern; the cursor moves to the beginning of the last line to
+      indicate that the search is in progress; the search may then be terminated
+      with a DEL or RUB, returning the cursor to its initial position. Searches
+      normally wrap end-around to find a string anywhere in the buffer. A count
+      to the command specifies the a new window size.</dd>
+  <dt></dt>
+  <dd>When used with an operator entire lines are always affected. In this case
+      it is sometimes convenient to specify an offset from the line matched by
+      the pattern. You can do this by giving a closing <b>/</b> and then an
+      offset <b>+</b><i>n</i> or <b>-</b><i>n</i>. If you wish to afffect the
+      region from where you were to where the serach terminates, use
+    <b>``</b>.</dd>
+  <dt></dt>
+  <dd>To include the character <b>/</b> in the search string, you must escape it
+      with a preceding <b>\</b>. A <b>&#x2191;</b> at the beginning of the
+      pattern forces the match to occur at the beginning of a line only; this
+      speeds the search. A <b>$</b> at the end of the pattern forces the match
+      to occur at the end of a line only. More extended pattern matching is
+      available, see section 7.4 (1.5, 2,2, 6.1, 7.2, 7.4).</dd>
+  <dt><b>0</b></dt>
+  <dd>Moves to the first character on the current line. Also used, in forming
+      numbers, after an initial <b>1</b>-<b>9</b>.</dd>
+  <dt><b>1-9</b></dt>
+  <dd>Used to form numeric arguments to commands (2.3, 7.2).</dd>
+  <dt><b>:</b></dt>
+  <dd>A prefix to a set of commands for file and option manipulation and escapes
+      to the system. Input is given on the bottom line and terminated with an
+      ESC, and the command then executed. You can return to where you were by
+      hitting DEL or RUB if you hit <b>:</b> accidentally (see primarily 6.2 and
+      7.3).</dd>
+  <dt><b>;</b></dt>
+  <dd>Repeats the last single character find which used <b>f F t</b> or
+      <b>T</b>. A count iterates the basic scan (4.1).</dd>
+  <dt><b>&lt;</b></dt>
+  <dd>An operator which shifts lines left one <i>shiftwidth</i>, normally 8
+      spaces. Like all operators, affects lines when repeated, as in
+      <b>&lt;&lt;</b>. Counts are passed through to the basic object, thus
+      <b>3&lt;&lt;</b> shifts three lines (6.6, 7.2).</dd>
+  <dt><b>=</b></dt>
+  <dd>Reindents line for LISP, as though they were typed in with <i>lisp</i> and
+      <i>autoindent</i> set (6.8).</dd>
+  <dt><b>&gt;</b></dt>
+  <dd>An operator which shifts lines right one <i>shiftwidth</i>, normally 8
+      spaces. Affects lines when repeated as in <b>&gt;&gt;</b>. Counts repeat
+      the basic object (6.6, 7.2).</dd>
+  <dt><b>?</b></dt>
+  <dd>Scans backwards, the opposite of <b>/</b>. See the <b>/</b> description
+      above for details on scanning (2.2, 6.1, 7.4).</dd>
+  <dt><b>@</b></dt>
+  <dd>Unused. If this is your kill character, you must escape it with a \ to
+      type it in during input mode, as it normally backs over the input you have
+      given on the current line (3.1, 3.4, 7.5).</dd>
+  <dt id="A"><a class="permalink" href="#A"><b>A</b></a></dt>
+  <dd>Appends at the end of line, a synonym for <b>$a</b> (7.2).</dd>
+  <dt id="B"><a class="permalink" href="#B"><b>B</b></a></dt>
+  <dd>Backs up a word, where words are composed of non-blank sequences, placing
+      the cursor at the beginning of the word. A count repeats the effect
+    (2.4).</dd>
+  <dt id="C"><a class="permalink" href="#C"><b>C</b></a></dt>
+  <dd>Changes the rest of the text on the current line; a synonym for
+    <b>c$</b>.</dd>
+  <dt id="D"><a class="permalink" href="#D"><b>D</b></a></dt>
+  <dd>Deletes the rest of the text on the current line; a synonym for
+    <b>d$</b>.</dd>
+  <dt id="E"><a class="permalink" href="#E"><b>E</b></a></dt>
+  <dd>Moves forward to the end of a word, defined as blanks and non-blanks, like
+      <b>B</b> and <b>W</b>. A count repeats the effect.</dd>
+  <dt id="F"><a class="permalink" href="#F"><b>F</b></a></dt>
+  <dd>Finds a single following character, backwards in the current line. A count
+      repeats this search that many times (4.1).</dd>
+  <dt id="G"><a class="permalink" href="#G"><b>G</b></a></dt>
+  <dd>Goes to the line number given as preceding argument, or the end of the
+      file if no preceding count is given. The screen is redrawn with the new
+      current line in the center if necessary (7.2).</dd>
+  <dt id="H"><a class="permalink" href="#H"><b>H</b></a></dt>
+  <dd>Homes the cursor to the top line on the screen. If a count is given, then
+      the cursor is moved to the count'th line on the screen. In any case the
+      cursor is moved to the first non-white character on the line. If used as
+      the target of an operator, full lines are affected (2.3, 3.2).</dd>
+  <dt id="I"><a class="permalink" href="#I"><b>I</b></a></dt>
+  <dd>Inserts at the beginning of a line; a synonym for <b>&#x2191;i</b>.</dd>
+  <dt id="J"><a class="permalink" href="#J"><b>J</b></a></dt>
+  <dd>Joins together lines, supplying appropriate white space: one space between
+      words, two spaces after a <b>.</b>, and no spaces at all if the first
+      character of the joined on line is <b>)</b>. A count causes that many
+      lines to be joined rather than the default two (6.5, 7.1f).</dd>
+  <dt id="K"><a class="permalink" href="#K"><b>K</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="L"><a class="permalink" href="#L"><b>L</b></a></dt>
+  <dd>Moves the cursor to the first non-white character of the last line on the
+      screen. With a count, to the first non-white of the count'th line from the
+      bottom. Operators affect whole lines when used with <b>L</b> (2.3).</dd>
+  <dt id="M"><a class="permalink" href="#M"><b>M</b></a></dt>
+  <dd>Moves the cursor to the middle line on the screen, at the first non-white
+      position on the line (2.3).</dd>
+  <dt id="N"><a class="permalink" href="#N"><b>N</b></a></dt>
+  <dd>Scans for the next match of the last pattern given to <b>/</b> or
+      <b>?</b>, but in the reverse direction; this is the inverse of
+    <b>n</b>.</dd>
+  <dt id="O"><a class="permalink" href="#O"><b>O</b></a></dt>
+  <dd>Opens a new line above the current line and inputs text there up to an
+      ESC. A count can be used on dumb terminals to specify a number of lines to
+      be opened; this is generally obsolete, as the <i>slowopen</i> option works
+      better (3.1).</dd>
+  <dt id="P"><a class="permalink" href="#P"><b>P</b></a></dt>
+  <dd>Puts the last deleted text back before/above the cursor. The text goes
+      back as whole lines above the cursor if it was deleted as whole lines.
+      Otherwise the text is inserted between the characters before and at the
+      cursor. May be preceded by a named buffer specification
+      <b>&quot;</b><i>x</i> to retrieve the contents of the buffer; buffers
+      <b>1</b>-<b>9</b> contain deleted material, buffers <b>a</b>-<b>z</b> are
+      available for general use (6.3).</dd>
+  <dt id="Q"><a class="permalink" href="#Q"><b>Q</b></a></dt>
+  <dd>Quits from <i>vi</i> to <i>ex</i> command mode. In this mode, whole lines
+      form commands, ending with a RETURN. You can give all the <b>:</b>
+      commands; the editor supplies the <b>:</b> as a prompt (7.7).</dd>
+  <dt id="R"><a class="permalink" href="#R"><b>R</b></a></dt>
+  <dd>Replaces characters on the screen with characters you type (overlay
+      fashion). Terminates with an ESC.</dd>
+  <dt id="S"><a class="permalink" href="#S"><b>S</b></a></dt>
+  <dd>Changes whole lines, a synonym for <b>cc</b>. A count substitutes for that
+      many lines. The lines are saved in the numeric buffers, and erased on the
+      screen before the substitution begins.</dd>
+  <dt id="T"><a class="permalink" href="#T"><b>T</b></a></dt>
+  <dd>Takes a single following character, locates the character before the
+      cursor in the current line, and places the cursor just after that
+      character. A count repeats the effect. Most useful with operators such as
+      <b>d</b> (4.1).</dd>
+  <dt id="U"><a class="permalink" href="#U"><b>U</b></a></dt>
+  <dd>Restores the current line to its state before you started changing it
+      (3.5).</dd>
+  <dt id="V"><a class="permalink" href="#V"><b>V</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="W"><a class="permalink" href="#W"><b>W</b></a></dt>
+  <dd>Moves forward to the beginning of a word in the current line, where words
+      are defined as sequences of blank/non-blank characters. A count repeats
+      the effect (2.4).</dd>
+  <dt id="X"><a class="permalink" href="#X"><b>X</b></a></dt>
+  <dd>Deletes the character before the cursor. A count repeats the effect, but
+      only characters on the current line are deleted.</dd>
+  <dt id="Y"><a class="permalink" href="#Y"><b>Y</b></a></dt>
+  <dd>Yanks a copy of the current line into the unnamed buffer, to be put back
+      by a later <b>p</b> or <b>P</b>; a very useful synonym for <b>yy</b>. A
+      count yanks that many lines. May be preceded by a buffer name to put lines
+      in that buffer (7.4).</dd>
+  <dt id="Z"><a class="permalink" href="#Z"><b>Z</b></a></dt>
+  <dd>Unused.</dd>
+  <dt><b>[[</b></dt>
+  <dd>Backs up to the previous section boundary. A section begins at each macro
+      in the <i>sections</i> option, normally a `.NH' or `.SH' and also at lines
+      which which start with a formfeed <b>^L</b>. Lines beginning with <b>{</b>
+      also stop <b>[[</b>; this makes it useful for looking backwards, a
+      function at a time, in C programs. If the option <i>lisp</i> is set, stops
+      at each <b>(</b> at the beginning of a line, and is thus useful for moving
+      backwards at the top level LISP objects. A count gives a new window size
+      for the next screen redraw (4.2, 6.1, 6.6, 7.2).</dd>
+  <dt><b>\</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>]]</b></dt>
+  <dd>Forward to a section boundary, see <b>[[</b> for a definition (4.2, 6.1,
+      6.6, 7.2).</dd>
+  <dt><b>&#x2191;</b></dt>
+  <dd>Moves to the first non-white position on the current line (4.4).</dd>
+  <dt><b>_</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>`</b></dt>
+  <dd>When followed by a <b>`</b> returns to the previous context. The previous
+      context is set whenever the current line is moved in a non-relative way.
+      When followed by a letter <b>a</b>-<b>z</b>, returns to the position which
+      was marked with this letter with a <b>m</b> command. A count before a
+      <b>`</b> gives a new window size for the next screen redraw. When used
+      with an operator such as <b>d</b>, the operation takes place from the
+      exact marked place to the current position within the line; if you use
+      <b>&#x00B4;</b>, the operation takes place over complete lines (2.2,
+    5.3).</dd>
+  <dt id="a"><a class="permalink" href="#a"><b>a</b></a></dt>
+  <dd>Appends arbitrary text after the current cursor position; the insert can
+      continue onto multiple lines by using RETURN within the insert. A count
+      causes the inserted text to be replicated, but only if the inserted text
+      is all on one line. The insertion terminates with an ESC (3.1, 7.2).</dd>
+  <dt id="b"><a class="permalink" href="#b"><b>b</b></a></dt>
+  <dd>Backs up to the beginning of a word in the current line. A word is a
+      sequence of alphanumerics, or a sequence of special characters. A count
+      repeats the effect (2.4).</dd>
+  <dt id="c"><a class="permalink" href="#c"><b>c</b></a></dt>
+  <dd>An operator which changes the following object, replacing it with the
+      following input text up to an ESC. If more than part of a single line is
+      affected, the text which is changed away is saved in the numeric named
+      buffers. If only part of the current line is affected, then the last
+      character to be changed away is marked with a <b>$</b>. A count causes
+      that many objects to be affected, thus both <b>3c)</b> and <b>c3)</b>
+      change the following three sentences (7.4).</dd>
+  <dt id="d"><a class="permalink" href="#d"><b>d</b></a></dt>
+  <dd>An operator which deletes the following object. If more than part of a
+      line is affected, the text is saved in the numeric buffers. A count causes
+      that many objects to be affected; thus <b>3dw</b> is the same as
+      <b>d3w</b> (3.3, 3.4, 4.1, 7.4).</dd>
+  <dt id="e"><a class="permalink" href="#e"><b>e</b></a></dt>
+  <dd>Advances to the end of the next word, defined as for <b>b</b> and
+      <b>w</b>. A count repeats the effect (2.4, 3.1).</dd>
+  <dt id="f"><a class="permalink" href="#f"><b>f</b></a></dt>
+  <dd>Finds the first instance of the next character following the cursor on the
+      current line. A count repeats the find (4.1).</dd>
+  <dt id="g"><a class="permalink" href="#g"><b>g</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="h"><a class="permalink" href="#h"><b>h</b></a></dt>
+  <dd>Backspaces a single character in the current line; a synonym for
+      <b>^H</b>. A count repeats the effect (3.1, 7.5).</dd>
+  <dt id="i"><a class="permalink" href="#i"><b>i</b></a></dt>
+  <dd>Inserts text before the cursor, otherwise like <b>a</b> (7.2).</dd>
+  <dt id="j"><a class="permalink" href="#j"><b>j</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="k"><a class="permalink" href="#k"><b>k</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="l"><a class="permalink" href="#l"><b>l</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="m"><a class="permalink" href="#m"><b>m</b></a></dt>
+  <dd>Marks the current position of the cursor in the mark register which is
+      specified by the next character <b>a</b>-<b>z</b>. Return to this position
+      or use with an operator using <b>`</b> or <b>&#x00B4;</b> (5.3).</dd>
+  <dt id="n"><a class="permalink" href="#n"><b>n</b></a></dt>
+  <dd>Repeats the last <b>/</b> or <b>?</b> scanning commands (2.2).</dd>
+  <dt id="o"><a class="permalink" href="#o"><b>o</b></a></dt>
+  <dd>Opens new lines below the current line; otherwise like <b>O</b>
+    (3.1).</dd>
+  <dt id="p"><a class="permalink" href="#p"><b>p</b></a></dt>
+  <dd>Puts text after/below the cursor; otherwise like <b>P</b> (6.3).</dd>
+  <dt id="q"><a class="permalink" href="#q"><b>q</b></a></dt>
+  <dd>Unused. In a <i>vi</i> command executed from within <i>ex</i> this returns
+      to <i>ex</i> command mode.</dd>
+  <dt id="r"><a class="permalink" href="#r"><b>r</b></a></dt>
+  <dd>Replaces the single character at the cursor with a single character you
+      type. The new character may be a RETURN; this is the easiest way to split
+      lines. A count replaces each of the following count characters with the
+      single character given; see <b>R</b> above which is the more usually
+      useful iteration of <b>r</b> (3.2).</dd>
+  <dt id="s"><a class="permalink" href="#s"><b>s</b></a></dt>
+  <dd>Changes the single character under the cursor to the text which follows up
+      to an ESC; given a count, that many characters from the current line are
+      changed. The last character to be changed is marked with <b>$</b> as in
+      <b>c</b> (3.2).</dd>
+  <dt id="t"><a class="permalink" href="#t"><b>t</b></a></dt>
+  <dd>Advances the cursor upto the character before the next character typed.
+      Most useful with operators such as <b>d</b> and <b>c</b> to delete the
+      characters up to a following character. You can use <b>.</b> to delete
+      more if this doesn't delete enough the first time (4.1).</dd>
+  <dt id="u"><a class="permalink" href="#u"><b>u</b></a></dt>
+  <dd>Undoes the last change made to the current buffer. If repeated, will
+      alternate between these two states, thus is its own inverse. When used
+      after an insert which inserted text on more than one line, the lines are
+      saved in the numeric named buffers (3.5).</dd>
+  <dt id="v"><a class="permalink" href="#v"><b>v</b></a></dt>
+  <dd>Unused.</dd>
+  <dt id="w"><a class="permalink" href="#w"><b>w</b></a></dt>
+  <dd>Advances to the beginning of the next word, as defined by <b>b</b>
+    (2.4).</dd>
+  <dt id="x"><a class="permalink" href="#x"><b>x</b></a></dt>
+  <dd>Deletes the single character under the cursor. With a count deletes
+      deletes that many characters forward from the cursor position, but only on
+      the current line (6.5).</dd>
+  <dt id="y"><a class="permalink" href="#y"><b>y</b></a></dt>
+  <dd>An operator, yanks the following object into the unnamed temporary buffer.
+      If preceded by a named buffer specification, <b>&quot;</b><i>x</i>, the
+      text is placed in that buffer also. Text can be recovered by a later
+      <b>p</b> or <b>P</b> (7.4).</dd>
+  <dt id="z"><a class="permalink" href="#z"><b>z</b></a></dt>
+  <dd>Redraws the screen with the current line placed as specified by the
+      following character: RETURN specifies the top of the screen, <b>.</b> the
+      center of the screen, and <b>-</b> at the bottom of the screen. A count
+      may be given after the <b>z</b> and before the following character to
+      specify the new screen size for the redraw. A count before the <b>z</b>
+      gives the number of the line to place in the center of the screen instead
+      of the default current line.</dd>
+  <dt><b>{</b></dt>
+  <dd>Retreats to the beginning of the beginning of the preceding paragraph. A
+      paragraph begins at each macro in the <i>paragraphs</i> option, normally
+      `.IP', `.LP', `.PP', `.QP' and `.bp'. A paragraph also begins after a
+      completely empty line, and at each section boundary (see <b>[[</b> above)
+      (4.2, 6.8, 7.6).</dd>
+  <dt><b>|</b></dt>
+  <dd>Places the cursor on the character in the column specified by the count
+      (7.1, 7.2).</dd>
+  <dt><b>}</b></dt>
+  <dd>Advances to the beginning of the next paragraph. See <b>{</b> for the
+      definition of paragraph (4.2, 6.8, 7.6).</dd>
+  <dt><b>~</b></dt>
+  <dd>Unused.</dd>
+  <dt><b>^?&#x00A0;(</b>DEL<b>)</b></dt>
+  <dd>Interrupts the editor, returning it to command accepting state (1.5,
+    7.5)</dd>
+</dl>
+</section>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">Thu Apr 19 23:25:43 PST 1979</td>
+    <td class="foot-os">2BSD</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    table.head, table.foot { width: 100%; }
+    td.head-rtitle, td.foot-os { text-align: right; }
+    td.head-vol { text-align: center; }
+    .Nd, .Bf, .Op { display: inline; }
+    .Pa, .Ad { font-style: italic; }
+    .Ms { font-weight: bold; }
+    .Bl-diag > dt { font-weight: bold; }
+    code.Nm, .Fl, .Cm, .Ic, code.In, .Fd, .Fn, .Cd { font-weight: bold;
+      font-family: inherit; }
+  </style>
+  <title>vi.summary</title>
+</head>
+<body>
+<table class="head">
+  <tr>
+    <td class="head-ltitle">vi.summary</td>
+    <td class="head-vol">General Commands Manual</td>
+    <td class="head-rtitle">vi.summary</td>
+  </tr>
+</table>
+<div class="manual-text">
+<br/>
+Ex Quick Reference
+<br/>
+<p class="Pp"><b>Entering ex</b>
+  <br/>
+</p>
+<p class="Pp">aw(1.4i)b aw(1.8i). % ex <i>name</i>	edit <i>name</i>, start at
+    end % ex +<i>n</i> <i>name</i>	... at line <i>n</i> % ex -t <i>tag</i>	start
+    at <i>tag</i> % ex -r	list saved files % ex -r <i>name</i>	recover file
+    <i>name</i> % ex <i>name</i> ...	edit first; rest via <b>:n</b> <b>Ex
+    states</b>
+  <br/>
+</p>
+<p class="Pp">lw(1i) lw(2.0i). Command	T{ Normal and initial state. Input
+    prompted for by <b>:</b>. Your kill character cancels partial command. T}
+    Insert	T{ Entered by <b>a</b> <b>i</b> and <b>c</b>. Arbitrary text then
+    terminates with line having only <b>.</b> character on it or abnormally with
+    interrupt. T} Open/visual	T{ Entered by <b>o</b> or <b>v</b>, terminates
+    with <b>q</b> or two successive interrupts. T} <b>Ex commands</b>
+  <br/>
+</p>
+<p class="Pp">lw(.45i) lw(.08i)b lw(.45i) lw(.08i)b lw(.45i) lw(.08i)b.
+    append	a	next	n	substitute	s args	ar	number	nu	undo	u
+    change	c	open	o	version	ve copy	co	preserve	pre	visual	vi
+    delete	d	print	p	write	w edit	e	put	pu	yank	ya file	f	quit	q	<i>window</i>	z
+    global	g	read	re	<i>escape</i>	! insert	i	recover	rec	<i>lshift</i>	&lt;
+    join	j	rewind	rew	<i>print next</i>	CR list	l	set	se	<i>resubst</i>	&amp;
+    mark	ma	shell	sh	<i>rshift</i>	&gt; move	m	source	so	<i>scroll</i>	^D <b>Ex
+    command addresses</b>
+  <br/>
+</p>
+<p class="Pp">lw(.3i)b lw(0.8i) lw(.3i)b lw(0.8i). <i>n</i>	line
+    <i>n</i>	/<i>pat</i>	next with <i>pat</i> .	current	?<i>pat</i>	previous
+    with <i>pat</i> $	last	<i>x</i>-<i>n</i>	<i>n</i> before <i>x</i>
+    +	next	<i>x</i>,<i>y</i>	<i>x</i> through <i>y</i>
+    -	previous	&#x00B4;<i>x</i>	marked with <i>x</i> +<i>n</i>	<i>n</i>
+    forward	&#x00B4;&#x00B4;	previous context <b>Specifying terminal type</b>
+  <br/>
+</p>
+<p class="Pp">aw(1.7i)b aw(1.5i). % setenv TERM <i>type</i>	<i>csh</i> and all
+    version 6 $ TERM=<i>type</i>	<i>sh</i> in Version 7 <b>Some terminal
+    types</b>
+  <br/>
+</p>
+<p class="Pp">lw(.4i) lw(.4i) lw(.4i) lw(.4i) lw(.4i). 2621	43	adm31	dw1	i100
+    2645	733	adm3a	dw2	mime 300s	745	c100	gt40	owl 33	act4	dm1520	gt42	t1061
+    37	act5	dm2500	h1500	vt52 4014	adm3	dm3025	h1510 <b>Initializing options</b>
+  <br/>
+</p>
+<p class="Pp">lw(.9i)b aw(1.5i). .exrc	place <b>set</b>'s here in HOME directory
+    set <i>x</i>	enable option set no<i>x</i>	disable option set
+    <i>x</i>=<i>val</i>	give value <i>val</i> set	show changed options set
+    <i>x</i>?	show value of option <i>x</i> <b>Useful options</b>
+  <br/>
+</p>
+<p class="Pp">lw(.9i)b lw(.3i) lw(1.0i). autoindent	ai	supply indent
+    beautify	bf	discard nonprinting chars ignorecase	ic	in scanning lisp		<b>( )
+    { }</b> are s-exp's list		print ^I for tab, $ at end magic		<b>. [ *</b>
+    special in patterns number	nu	number lines paragraphs	para	macro names which
+    start ... redraw		simulate smart terminal sections	sect	macro names ...
+    shiftwidth	sw	for <b>&lt; &gt;</b>, and input <b>^D ^T</b> showmatch	sm	to
+    <b>)</b> and <b>}</b> as typed slowopen	slow	choke updates during insert
+    wrapscan	ws	around end of buffer? wrapmargin	wm	automatic line splitting</p>
+<p class="Pp"><b>Scanning pattern formation</b>
+  <br/>
+</p>
+<p class="Pp">aw(.9i)b aw(1.0i). &#x2191;	beginning of line $	end of line
+    <b>.</b>	any character \&lt;	beginning of word \&gt;	end of word
+    [<i>str</i>]	any char in <i>str</i> [&#x2191;<i>str</i>]	... not in
+    <i>str</i> [<i>x-y</i>]	... between <i>x</i> and <i>y</i> *	any number of
+    preceding</p>
+<p class="Pp">
+  <br/>
+  Vi Quick Reference
+  <br/>
+</p>
+<p class="Pp"><b>Starting vi</b>
+  <br/>
+</p>
+<p class="Pp">aw(1.4i)b aw(1.8i). % vi <i>name</i>	edit <i>name</i> at top % vi
+    +<i>n</i> <i>name</i>	... at line <i>n</i> % vi + <i>name</i>	... at end %
+    vi -r	list saved files % vi -r <i>name</i>	recover file <i>name</i> % vi
+    <i>name</i> ...	edit first; rest via <b>:n</b> % vi -t <i>tag</i>	start at
+    <i>tag</i> <b>The display</b>
+  <br/>
+</p>
+<p class="Pp">lw(.75i) lw(2.2i). Last line	T{ Error messages, echoing input to
+    <b>: / ?</b> and <b>!</b>, feedback about i/o and large changes. T} @
+    lines	On screen only, not in file. ~ lines	Lines past end of file.
+    ^<i>x</i>	Control characters, ^? is delete. tabs	Expand to spaces, cursor at
+    last.</p>
+<p class="Pp"><b>Vi states</b>
+  <br/>
+</p>
+<p class="Pp">lw(.75i) lw(2.2i). Command	T{ Normal and initial state. Others
+    return here. ESC (escape) cancels partial command. T} Insert	T{ Entered by
+    <b>a i A I o O c C s S</b> <b>R</b>. Arbitrary text then terminates with ESC
+    character, or abnormally with interrupt. T} Last line	T{ Reading input for
+    <b>: / ?</b> or <b>!</b>; terminate with ESC or CR to execute, interrupt to
+    cancel. T} <b>Counts before vi commands</b>
+  <br/>
+</p>
+<p class="Pp">lw(1.5i) lw(1.7i)b. new window size	: / ? [[ ]] ^F ^B ` &#x00B4;
+    line/column number	z G |	 scroll amount	^D ^U replicate insert	a i A I
+    repeat effect	most rest <b>Simple commands</b>
+  <br/>
+</p>
+<p class="Pp">lw(1.5i)b lw(1.7i). dw	delete a word de	... leaving punctuation
+    dd	delete a line 3dd	... 3 lines i<i>text</i>ESC	insert text <i>abc</i>
+    cw<i>new</i>ESC	change word to <i>new</i> ea<i>s</i>ESC	pluralize word
+    xp	transpose characters <b>Interrupting, cancelling</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.75i)b aw(1.6i). ESC	end insert or incomplete cmd ^?	(delete
+    or rubout) interrupts ^L	reprint screen if <b>^?</b> scrambles it <b>File
+    manipulation</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.75i)b aw(1.6i). :w	write back changes :wq	write and quit
+    :q	quit :q!	quit, discard changes :e <i>name</i>	edit file <i>name</i>
+    :e!	reedit, discard changes :e + <i>name</i>	edit, starting at end :e
+    +<i>n</i>	edit starting at line <i>n</i> :e #	edit alternate file
+    ^&#x2191;	synonym for <b>:e #</b> :w <i>name</i>	write file <i>name</i> :w!
+    <i>name</i>	overwrite file <i>name</i> :sh	run shell, then return
+    :!<i>cmd</i>	run <i>cmd</i>, then return :n	edit next file in arglist :n
+    <i>args</i>	specify new arglist :f	show current file and line ^G	synonym for
+    <b>:f</b> :ta <i>tag</i>	to tag file entry <i>tag</i> ^]	<b>:ta</b>,
+    following word is <i>tag</i> <b>Positioning within file</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.75i)b aw(1.6i). ^F	forward screenful ^B	backward screenful
+    ^D	scroll down half screen ^U	scroll up half screen G	goto line (end
+    default) /<i>pat</i>	next line matching <i>pat</i> ?<i>pat</i>	prev line
+    matching <i>pat</i> n	repeat last <b>/</b> or <b>?</b> N	reverse last
+    <b>/</b> or <b>?</b> /<i>pat</i>/+<i>n</i>	n'th line after <i>pat</i>
+    ?<i>pat</i>?-<i>n</i>	n'th line before <i>pat</i> ]]	next section/function
+    [[	previous section/function %	find matching <b>( ) {</b> or <b>}</b>
+    <b>Adjusting the screen</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.75i)b aw(1.6i). ^L	clear and redraw ^R	retype, eliminate @
+    lines zCR	redraw, current at window top z-	... at bottom z.	... at center
+    /<i>pat</i>/z-	<i>pat</i> line at bottom z<i>n</i>.	use <i>n</i> line window
+    <b>Marking and returning</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). ``	previous context &#x00B4;&#x00B4;	... at
+    first non-white in line m<i>x</i>	mark position with letter <i>x</i>
+    `<i>x</i>	to mark <i>x</i> &#x00B4;<i>x</i>	... at first non-white in line
+    <b>Line positioning</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). H	home window line L	last window line M	middle
+    window line +	next line, at first non-white -	previous line, at first
+    non-white CR	return, same as + ^N	next line, same column ^P	previous line,
+    same column <b>LF</b>	linefeed, same as <b>^N</b> <b>Character
+    positioning</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). &#x2191;	first non white 0	beginning of line
+    $	end of line space	forward ^H	backwards h	same as <b>^H</b> f<i>x</i>	find
+    <i>x</i> forward F<i>x</i>	<b>f</b> backward t<i>x</i>	upto <i>x</i> forward
+    T<i>x</i>	back upto <i>x</i> ;	repeat last <b>f F t</b> or <b>T</b>
+    ,	inverse of <b>;</b> |	to specified column %	find matching <b>( { )</b> or
+    <b>}</b> <b>Words, sentences, paragraphs</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). w	word forward b	back word e	end of word )	to
+    next sentence }	to next paragraph (	back sentence {	back paragraph W	blank
+    delimited word B	back <b>W</b> E	to end of <b>W</b> <b>Commands for LISP</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). )	Forward s-expression }	... but don't stop at
+    atoms (	Back s-expression {	... but don't stop at atoms <b>Corrections
+    during insert</b>
+  <br/>
+</p>
+<p class="Pp">aw(.5i)b aw(2.0i). ^H	erase last character ^W	erases last word
+    erase	your erase, same as <b>^H</b> kill	your kill, erase input this line
+    \	escapes <b>^H</b>, your erase and kill ESC	ends insertion, back to command
+    ^?	interrupt, terminates insert ^D	backtab over <i>autoindent</i>
+    &#x2191;^D	kill <i>autoindent</i>, save for next 0^D	... but at margin next
+    also ^Q	quote non-printing character ^T	<i>shiftwidth</i> forward tab
+    <b>Insert and replace</b>
+  <br/>
+</p>
+<p class="Pp">aw(.5i)b aw(2.0i). a	append after cursor i	insert before A	append
+    at end of line I	insert before first non-blank o	open line below O	open
+    above r<i>x</i>	replace single char with <i>x</i> R	replace characters
+    <b>Operators (double to affect lines)</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). d	delete c	change &lt;	left shift &gt;	right
+    shift !	filter through command =	indent for LISP y	yank lines to buffer
+    <b>Miscellaneous operations</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). C	change rest of line D	delete rest of line
+    s	substitute chars S	substitute lines J	join lines x	delete characters X	...
+    before cursor Y	yank lines <b>Yank and put</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). p	put back lines P	put before
+    &quot;<i>x</i>p	put from buffer <i>x</i> &quot;<i>x</i>y	yank to buffer
+    <i>x</i> &quot;<i>x</i>d	delete into buffer <i>x</i> <b>Undo, redo,
+    retrieve</b>
+  <br/>
+</p>
+<p class="Pp">aw(0.5i)b aw(2.0i). u	undo last change U	restore current line
+    <b>.</b>	repeat last change &quot;<i>d</i>p	retrieve <i>d</i>'th last
+  delete</p>
+</div>
+<table class="foot">
+  <tr>
+    <td class="foot-date">Thu Apr 19 23:25:43 PST 1979</td>
+    <td class="foot-os">2BSD</td>
+  </tr>
+</table>
+</body>
+</html>

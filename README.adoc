@@ -1,0 +1,12 @@
+= Original documents of vi (from 2BSD, since 1979)
+
+This repository re-distribute vi document from `doc/vi/` in http://www.tuhs.org/Archive/Distributions/UCB/2bsd.tar.gz
+
+== re-compile
+
+[source, sh]
+----
+mandoc -Thtml src/vi.in > vi.in.html
+mandoc -Thtml src/vi.summary > vi.summary.html
+mandoc -Thtml src/vi.chars > vi.chars.html
+----
