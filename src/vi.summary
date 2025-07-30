@@ -1,13 +1,3 @@
-.de TS
-.br
-.if !\\n(1T .RT
-.ul 0
-.ti \\n(.iu
-.if t .sp 0.25
-.if n .sp
-.if \\$1H .TQ
-.nr IX 1
-..
 .nr PS 9
 .ps 9
 .nr VS 11

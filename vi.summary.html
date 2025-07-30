@@ -28,214 +28,1098 @@
 <br/>
 Ex Quick Reference
 <br/>
-<p class="Pp"><b>Entering ex</b>
-  <br/>
-</p>
-<p class="Pp">aw(1.4i)b aw(1.8i). % ex <i>name</i>	edit <i>name</i>, start at
-    end % ex +<i>n</i> <i>name</i>	... at line <i>n</i> % ex -t <i>tag</i>	start
-    at <i>tag</i> % ex -r	list saved files % ex -r <i>name</i>	recover file
-    <i>name</i> % ex <i>name</i> ...	edit first; rest via <b>:n</b> <b>Ex
-    states</b>
-  <br/>
-</p>
-<p class="Pp">lw(1i) lw(2.0i). Command	T{ Normal and initial state. Input
-    prompted for by <b>:</b>. Your kill character cancels partial command. T}
-    Insert	T{ Entered by <b>a</b> <b>i</b> and <b>c</b>. Arbitrary text then
-    terminates with line having only <b>.</b> character on it or abnormally with
-    interrupt. T} Open/visual	T{ Entered by <b>o</b> or <b>v</b>, terminates
-    with <b>q</b> or two successive interrupts. T} <b>Ex commands</b>
-  <br/>
-</p>
-<p class="Pp">lw(.45i) lw(.08i)b lw(.45i) lw(.08i)b lw(.45i) lw(.08i)b.
-    append	a	next	n	substitute	s args	ar	number	nu	undo	u
-    change	c	open	o	version	ve copy	co	preserve	pre	visual	vi
-    delete	d	print	p	write	w edit	e	put	pu	yank	ya file	f	quit	q	<i>window</i>	z
-    global	g	read	re	<i>escape</i>	! insert	i	recover	rec	<i>lshift</i>	&lt;
-    join	j	rewind	rew	<i>print next</i>	CR list	l	set	se	<i>resubst</i>	&amp;
-    mark	ma	shell	sh	<i>rshift</i>	&gt; move	m	source	so	<i>scroll</i>	^D <b>Ex
-    command addresses</b>
-  <br/>
-</p>
-<p class="Pp">lw(.3i)b lw(0.8i) lw(.3i)b lw(0.8i). <i>n</i>	line
-    <i>n</i>	/<i>pat</i>	next with <i>pat</i> .	current	?<i>pat</i>	previous
-    with <i>pat</i> $	last	<i>x</i>-<i>n</i>	<i>n</i> before <i>x</i>
-    +	next	<i>x</i>,<i>y</i>	<i>x</i> through <i>y</i>
-    -	previous	&#x00B4;<i>x</i>	marked with <i>x</i> +<i>n</i>	<i>n</i>
-    forward	&#x00B4;&#x00B4;	previous context <b>Specifying terminal type</b>
-  <br/>
-</p>
-<p class="Pp">aw(1.7i)b aw(1.5i). % setenv TERM <i>type</i>	<i>csh</i> and all
-    version 6 $ TERM=<i>type</i>	<i>sh</i> in Version 7 <b>Some terminal
-    types</b>
-  <br/>
-</p>
-<p class="Pp">lw(.4i) lw(.4i) lw(.4i) lw(.4i) lw(.4i). 2621	43	adm31	dw1	i100
-    2645	733	adm3a	dw2	mime 300s	745	c100	gt40	owl 33	act4	dm1520	gt42	t1061
-    37	act5	dm2500	h1500	vt52 4014	adm3	dm3025	h1510 <b>Initializing options</b>
-  <br/>
-</p>
-<p class="Pp">lw(.9i)b aw(1.5i). .exrc	place <b>set</b>'s here in HOME directory
-    set <i>x</i>	enable option set no<i>x</i>	disable option set
-    <i>x</i>=<i>val</i>	give value <i>val</i> set	show changed options set
-    <i>x</i>?	show value of option <i>x</i> <b>Useful options</b>
-  <br/>
-</p>
-<p class="Pp">lw(.9i)b lw(.3i) lw(1.0i). autoindent	ai	supply indent
-    beautify	bf	discard nonprinting chars ignorecase	ic	in scanning lisp		<b>( )
-    { }</b> are s-exp's list		print ^I for tab, $ at end magic		<b>. [ *</b>
-    special in patterns number	nu	number lines paragraphs	para	macro names which
-    start ... redraw		simulate smart terminal sections	sect	macro names ...
-    shiftwidth	sw	for <b>&lt; &gt;</b>, and input <b>^D ^T</b> showmatch	sm	to
-    <b>)</b> and <b>}</b> as typed slowopen	slow	choke updates during insert
-    wrapscan	ws	around end of buffer? wrapmargin	wm	automatic line splitting</p>
-<p class="Pp"><b>Scanning pattern formation</b>
-  <br/>
-</p>
-<p class="Pp">aw(.9i)b aw(1.0i). &#x2191;	beginning of line $	end of line
-    <b>.</b>	any character \&lt;	beginning of word \&gt;	end of word
-    [<i>str</i>]	any char in <i>str</i> [&#x2191;<i>str</i>]	... not in
-    <i>str</i> [<i>x-y</i>]	... between <i>x</i> and <i>y</i> *	any number of
-    preceding</p>
+<p class="Pp"><b>Entering ex</b></p>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>% ex </b><i>name</i><b></b></td>
+    <td>&#x2003;edit <i>name</i>, start at end</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% ex +</b><i>n</i><b> </b><i>name</i><b></b></td>
+    <td>&#x2003;... at line <i>n</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% ex -t </b><i>tag</i><b></b></td>
+    <td>&#x2003;start at <i>tag</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% ex -r</b></td>
+    <td>&#x2003;list saved files</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% ex -r </b><i>name</i><b></b></td>
+    <td>&#x2003;recover file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% ex </b><i>name</i><b> ...</b></td>
+    <td>&#x2003;edit first; rest via <b>:n</b></td>
+  </tr>
+</table>
+<b>Ex states</b>
+<table class="tbl">
+  <tr>
+    <td>Command</td>
+    <td>Normal and initial state. Input prompted for by <b>:</b>. Your kill
+      character cancels partial command.</td>
+  </tr>
+  <tr>
+    <td>Insert</td>
+    <td>Entered by <b>a</b> <b>i</b> and <b>c</b>. Arbitrary text then
+      terminates with line having only <b>.</b> character on it or abnormally
+      with interrupt.</td>
+  </tr>
+  <tr>
+    <td>Open/visual</td>
+    <td>Entered by <b>o</b> or <b>v</b>, terminates with <b>q</b> or two
+      successive interrupts.</td>
+  </tr>
+</table>
+<b>Ex commands</b>
+<table class="tbl">
+  <tr>
+    <td>append</td>
+    <td><b>a</b></td>
+    <td>next</td>
+    <td><b>n</b></td>
+    <td>substitute</td>
+    <td><b>s</b></td>
+  </tr>
+  <tr>
+    <td>args</td>
+    <td><b>ar</b></td>
+    <td>number</td>
+    <td><b>nu</b></td>
+    <td>undo</td>
+    <td><b>u</b></td>
+  </tr>
+  <tr>
+    <td>change</td>
+    <td><b>c</b></td>
+    <td>open</td>
+    <td><b>o</b></td>
+    <td>version</td>
+    <td><b>ve</b></td>
+  </tr>
+  <tr>
+    <td>copy</td>
+    <td><b>co</b></td>
+    <td>preserve</td>
+    <td><b>pre</b></td>
+    <td>visual</td>
+    <td><b>vi</b></td>
+  </tr>
+  <tr>
+    <td>delete</td>
+    <td><b>d</b></td>
+    <td>print</td>
+    <td><b>p</b></td>
+    <td>write</td>
+    <td><b>w</b></td>
+  </tr>
+  <tr>
+    <td>edit</td>
+    <td><b>e</b></td>
+    <td>put</td>
+    <td><b>pu</b></td>
+    <td>yank</td>
+    <td><b>ya</b></td>
+  </tr>
+  <tr>
+    <td>file</td>
+    <td><b>f</b></td>
+    <td>quit</td>
+    <td><b>q</b></td>
+    <td><i>window</i></td>
+    <td><b>z</b></td>
+  </tr>
+  <tr>
+    <td>global</td>
+    <td><b>g</b></td>
+    <td>read</td>
+    <td><b>re</b></td>
+    <td><i>escape</i></td>
+    <td><b>!</b></td>
+  </tr>
+  <tr>
+    <td>insert</td>
+    <td><b>i</b></td>
+    <td>recover</td>
+    <td><b>rec</b></td>
+    <td><i>lshift</i></td>
+    <td><b>&lt;</b></td>
+  </tr>
+  <tr>
+    <td>join</td>
+    <td><b>j</b></td>
+    <td>rewind</td>
+    <td><b>rew</b></td>
+    <td><i>print next</i></td>
+    <td><b></b>CR<b></b></td>
+  </tr>
+  <tr>
+    <td>list</td>
+    <td><b>l</b></td>
+    <td>set</td>
+    <td><b>se</b></td>
+    <td><i>resubst</i></td>
+    <td><b>&amp;</b></td>
+  </tr>
+  <tr>
+    <td>mark</td>
+    <td><b>ma</b></td>
+    <td>shell</td>
+    <td><b>sh</b></td>
+    <td><i>rshift</i></td>
+    <td><b>&gt;</b></td>
+  </tr>
+  <tr>
+    <td>move</td>
+    <td><b>m</b></td>
+    <td>source</td>
+    <td><b>so</b></td>
+    <td><i>scroll</i></td>
+    <td><b>^D</b></td>
+  </tr>
+</table>
+<b>Ex command addresses</b>
+<table class="tbl">
+  <tr>
+    <td><b></b><i>n</i><b></b></td>
+    <td>line <i>n</i></td>
+    <td><b>/</b><i>pat</i><b></b></td>
+    <td>next with <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>.</b></td>
+    <td>current</td>
+    <td><b>?</b><i>pat</i><b></b></td>
+    <td>previous with <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>$</b></td>
+    <td>last</td>
+    <td><b></b><i>x</i><b>-</b><i>n</i><b></b></td>
+    <td><i>n</i> before <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>+</b></td>
+    <td>next</td>
+    <td><b></b><i>x</i><b>,</b><i>y</i><b></b></td>
+    <td><i>x</i> through <i>y</i></td>
+  </tr>
+  <tr>
+    <td><b>-</b></td>
+    <td>previous</td>
+    <td><b>&#x00B4;</b><i>x</i><b></b></td>
+    <td>marked with <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>+</b><i>n</i><b></b></td>
+    <td><i>n</i> forward</td>
+    <td><b>&#x00B4;&#x00B4;</b></td>
+    <td>previous context</td>
+  </tr>
+</table>
+<b>Specifying terminal type</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>% setenv TERM </b><i>type</i><b></b></td>
+    <td>&#x2003;<i>csh</i> and all version 6</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>$ TERM=</b><i>type</i><b></b></td>
+    <td>&#x2003;<i>sh</i> in Version 7</td>
+  </tr>
+</table>
+<b>Some terminal types</b>
+<table class="tbl">
+  <tr>
+    <td>2621</td>
+    <td>43</td>
+    <td>adm31</td>
+    <td>dw1</td>
+    <td>i100</td>
+  </tr>
+  <tr>
+    <td>2645</td>
+    <td>733</td>
+    <td>adm3a</td>
+    <td>dw2</td>
+    <td>mime</td>
+  </tr>
+  <tr>
+    <td>300s</td>
+    <td>745</td>
+    <td>c100</td>
+    <td>gt40</td>
+    <td>owl</td>
+  </tr>
+  <tr>
+    <td>33</td>
+    <td>act4</td>
+    <td>dm1520</td>
+    <td>gt42</td>
+    <td>t1061</td>
+  </tr>
+  <tr>
+    <td>37</td>
+    <td>act5</td>
+    <td>dm2500</td>
+    <td>h1500</td>
+    <td>vt52</td>
+  </tr>
+  <tr>
+    <td>4014</td>
+    <td>adm3</td>
+    <td>dm3025</td>
+    <td>h1510</td>
+  </tr>
+</table>
+<b>Initializing options</b>
+<table class="tbl">
+  <tr>
+    <td><b>.exrc</b></td>
+    <td>&#x2003;place <b>set</b>'s here in HOME directory</td>
+  </tr>
+  <tr>
+    <td><b>set </b><i>x</i><b></b></td>
+    <td>&#x2003;enable option</td>
+  </tr>
+  <tr>
+    <td><b>set no</b><i>x</i><b></b></td>
+    <td>&#x2003;disable option</td>
+  </tr>
+  <tr>
+    <td><b>set </b><i>x</i><b>=</b><i>val</i><b></b></td>
+    <td>&#x2003;give value <i>val</i></td>
+  </tr>
+  <tr>
+    <td><b>set</b></td>
+    <td>&#x2003;show changed options</td>
+  </tr>
+  <tr>
+    <td><b>set </b><i>x</i><b>?</b></td>
+    <td>&#x2003;show value of option <i>x</i></td>
+  </tr>
+</table>
+<b>Useful options</b>
+<table class="tbl">
+  <tr>
+    <td><b>autoindent</b></td>
+    <td>ai</td>
+    <td>supply indent</td>
+  </tr>
+  <tr>
+    <td><b>beautify</b></td>
+    <td>bf</td>
+    <td>discard nonprinting chars</td>
+  </tr>
+  <tr>
+    <td><b>ignorecase</b></td>
+    <td>ic</td>
+    <td>in scanning</td>
+  </tr>
+  <tr>
+    <td><b>lisp</b></td>
+    <td></td>
+    <td><b>( ) { }</b> are s-exp's</td>
+  </tr>
+  <tr>
+    <td><b>list</b></td>
+    <td></td>
+    <td>print ^I for tab, $ at end</td>
+  </tr>
+  <tr>
+    <td><b>magic</b></td>
+    <td></td>
+    <td><b>. [ *</b> special in patterns</td>
+  </tr>
+  <tr>
+    <td><b>number</b></td>
+    <td>nu</td>
+    <td>number lines</td>
+  </tr>
+  <tr>
+    <td><b>paragraphs</b></td>
+    <td>para</td>
+    <td>macro names which start ...</td>
+  </tr>
+  <tr>
+    <td><b>redraw</b></td>
+    <td></td>
+    <td>simulate smart terminal</td>
+  </tr>
+  <tr>
+    <td><b>sections</b></td>
+    <td>sect</td>
+    <td>macro names ...</td>
+  </tr>
+  <tr>
+    <td><b>shiftwidth</b></td>
+    <td>sw</td>
+    <td>for <b>&lt; &gt;</b>, and input <b>^D ^T</b></td>
+  </tr>
+  <tr>
+    <td><b>showmatch</b></td>
+    <td>sm</td>
+    <td>to <b>)</b> and <b>}</b> as typed</td>
+  </tr>
+  <tr>
+    <td><b>slowopen</b></td>
+    <td>slow</td>
+    <td>choke updates during insert</td>
+  </tr>
+  <tr>
+    <td><b>wrapscan</b></td>
+    <td>ws</td>
+    <td>around end of buffer?</td>
+  </tr>
+  <tr>
+    <td><b>wrapmargin</b></td>
+    <td>wm</td>
+    <td>automatic line splitting</td>
+  </tr>
+</table>
+<p class="Pp"><b>Scanning pattern formation</b></p>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>&#x2191;</b></td>
+    <td>&#x2003;beginning of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>$</b></td>
+    <td>&#x2003;end of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b><b>.</b></td>
+    <td>&#x2003;any character</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>\&lt;</b></td>
+    <td>&#x2003;beginning of word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>\&gt;</b></td>
+    <td>&#x2003;end of word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>[</b><i>str</i><b>]</b></td>
+    <td>&#x2003;any char in <i>str</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>[&#x2191;</b><i>str</i><b>]</b></td>
+    <td>&#x2003;... not in <i>str</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>[</b><i>x-y</i><b>]</b></td>
+    <td>&#x2003;... between <i>x</i> and <i>y</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>*</b></td>
+    <td>&#x2003;any number of preceding</td>
+  </tr>
+</table>
 <p class="Pp">
   <br/>
   Vi Quick Reference
   <br/>
 </p>
-<p class="Pp"><b>Starting vi</b>
-  <br/>
-</p>
-<p class="Pp">aw(1.4i)b aw(1.8i). % vi <i>name</i>	edit <i>name</i> at top % vi
-    +<i>n</i> <i>name</i>	... at line <i>n</i> % vi + <i>name</i>	... at end %
-    vi -r	list saved files % vi -r <i>name</i>	recover file <i>name</i> % vi
-    <i>name</i> ...	edit first; rest via <b>:n</b> % vi -t <i>tag</i>	start at
-    <i>tag</i> <b>The display</b>
-  <br/>
-</p>
-<p class="Pp">lw(.75i) lw(2.2i). Last line	T{ Error messages, echoing input to
-    <b>: / ?</b> and <b>!</b>, feedback about i/o and large changes. T} @
-    lines	On screen only, not in file. ~ lines	Lines past end of file.
-    ^<i>x</i>	Control characters, ^? is delete. tabs	Expand to spaces, cursor at
-    last.</p>
-<p class="Pp"><b>Vi states</b>
-  <br/>
-</p>
-<p class="Pp">lw(.75i) lw(2.2i). Command	T{ Normal and initial state. Others
-    return here. ESC (escape) cancels partial command. T} Insert	T{ Entered by
-    <b>a i A I o O c C s S</b> <b>R</b>. Arbitrary text then terminates with ESC
-    character, or abnormally with interrupt. T} Last line	T{ Reading input for
-    <b>: / ?</b> or <b>!</b>; terminate with ESC or CR to execute, interrupt to
-    cancel. T} <b>Counts before vi commands</b>
-  <br/>
-</p>
-<p class="Pp">lw(1.5i) lw(1.7i)b. new window size	: / ? [[ ]] ^F ^B ` &#x00B4;
-    line/column number	z G |	 scroll amount	^D ^U replicate insert	a i A I
-    repeat effect	most rest <b>Simple commands</b>
-  <br/>
-</p>
-<p class="Pp">lw(1.5i)b lw(1.7i). dw	delete a word de	... leaving punctuation
-    dd	delete a line 3dd	... 3 lines i<i>text</i>ESC	insert text <i>abc</i>
-    cw<i>new</i>ESC	change word to <i>new</i> ea<i>s</i>ESC	pluralize word
-    xp	transpose characters <b>Interrupting, cancelling</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.75i)b aw(1.6i). ESC	end insert or incomplete cmd ^?	(delete
-    or rubout) interrupts ^L	reprint screen if <b>^?</b> scrambles it <b>File
-    manipulation</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.75i)b aw(1.6i). :w	write back changes :wq	write and quit
-    :q	quit :q!	quit, discard changes :e <i>name</i>	edit file <i>name</i>
-    :e!	reedit, discard changes :e + <i>name</i>	edit, starting at end :e
-    +<i>n</i>	edit starting at line <i>n</i> :e #	edit alternate file
-    ^&#x2191;	synonym for <b>:e #</b> :w <i>name</i>	write file <i>name</i> :w!
-    <i>name</i>	overwrite file <i>name</i> :sh	run shell, then return
-    :!<i>cmd</i>	run <i>cmd</i>, then return :n	edit next file in arglist :n
-    <i>args</i>	specify new arglist :f	show current file and line ^G	synonym for
-    <b>:f</b> :ta <i>tag</i>	to tag file entry <i>tag</i> ^]	<b>:ta</b>,
-    following word is <i>tag</i> <b>Positioning within file</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.75i)b aw(1.6i). ^F	forward screenful ^B	backward screenful
-    ^D	scroll down half screen ^U	scroll up half screen G	goto line (end
-    default) /<i>pat</i>	next line matching <i>pat</i> ?<i>pat</i>	prev line
-    matching <i>pat</i> n	repeat last <b>/</b> or <b>?</b> N	reverse last
-    <b>/</b> or <b>?</b> /<i>pat</i>/+<i>n</i>	n'th line after <i>pat</i>
-    ?<i>pat</i>?-<i>n</i>	n'th line before <i>pat</i> ]]	next section/function
-    [[	previous section/function %	find matching <b>( ) {</b> or <b>}</b>
-    <b>Adjusting the screen</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.75i)b aw(1.6i). ^L	clear and redraw ^R	retype, eliminate @
-    lines zCR	redraw, current at window top z-	... at bottom z.	... at center
-    /<i>pat</i>/z-	<i>pat</i> line at bottom z<i>n</i>.	use <i>n</i> line window
-    <b>Marking and returning</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). ``	previous context &#x00B4;&#x00B4;	... at
-    first non-white in line m<i>x</i>	mark position with letter <i>x</i>
-    `<i>x</i>	to mark <i>x</i> &#x00B4;<i>x</i>	... at first non-white in line
-    <b>Line positioning</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). H	home window line L	last window line M	middle
-    window line +	next line, at first non-white -	previous line, at first
-    non-white CR	return, same as + ^N	next line, same column ^P	previous line,
-    same column <b>LF</b>	linefeed, same as <b>^N</b> <b>Character
-    positioning</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). &#x2191;	first non white 0	beginning of line
-    $	end of line space	forward ^H	backwards h	same as <b>^H</b> f<i>x</i>	find
-    <i>x</i> forward F<i>x</i>	<b>f</b> backward t<i>x</i>	upto <i>x</i> forward
-    T<i>x</i>	back upto <i>x</i> ;	repeat last <b>f F t</b> or <b>T</b>
-    ,	inverse of <b>;</b> |	to specified column %	find matching <b>( { )</b> or
-    <b>}</b> <b>Words, sentences, paragraphs</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). w	word forward b	back word e	end of word )	to
-    next sentence }	to next paragraph (	back sentence {	back paragraph W	blank
-    delimited word B	back <b>W</b> E	to end of <b>W</b> <b>Commands for LISP</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). )	Forward s-expression }	... but don't stop at
-    atoms (	Back s-expression {	... but don't stop at atoms <b>Corrections
-    during insert</b>
-  <br/>
-</p>
-<p class="Pp">aw(.5i)b aw(2.0i). ^H	erase last character ^W	erases last word
-    erase	your erase, same as <b>^H</b> kill	your kill, erase input this line
-    \	escapes <b>^H</b>, your erase and kill ESC	ends insertion, back to command
-    ^?	interrupt, terminates insert ^D	backtab over <i>autoindent</i>
-    &#x2191;^D	kill <i>autoindent</i>, save for next 0^D	... but at margin next
-    also ^Q	quote non-printing character ^T	<i>shiftwidth</i> forward tab
-    <b>Insert and replace</b>
-  <br/>
-</p>
-<p class="Pp">aw(.5i)b aw(2.0i). a	append after cursor i	insert before A	append
-    at end of line I	insert before first non-blank o	open line below O	open
-    above r<i>x</i>	replace single char with <i>x</i> R	replace characters
-    <b>Operators (double to affect lines)</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). d	delete c	change &lt;	left shift &gt;	right
-    shift !	filter through command =	indent for LISP y	yank lines to buffer
-    <b>Miscellaneous operations</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). C	change rest of line D	delete rest of line
-    s	substitute chars S	substitute lines J	join lines x	delete characters X	...
-    before cursor Y	yank lines <b>Yank and put</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). p	put back lines P	put before
-    &quot;<i>x</i>p	put from buffer <i>x</i> &quot;<i>x</i>y	yank to buffer
-    <i>x</i> &quot;<i>x</i>d	delete into buffer <i>x</i> <b>Undo, redo,
-    retrieve</b>
-  <br/>
-</p>
-<p class="Pp">aw(0.5i)b aw(2.0i). u	undo last change U	restore current line
-    <b>.</b>	repeat last change &quot;<i>d</i>p	retrieve <i>d</i>'th last
-  delete</p>
+<p class="Pp"><b>Starting vi</b></p>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>% vi </b><i>name</i><b></b></td>
+    <td>&#x2003;edit <i>name</i> at top</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi +</b><i>n</i><b> </b><i>name</i><b></b></td>
+    <td>&#x2003;... at line <i>n</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi + </b><i>name</i><b></b></td>
+    <td>&#x2003;... at end</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi -r</b></td>
+    <td>&#x2003;list saved files</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi -r </b><i>name</i><b></b></td>
+    <td>&#x2003;recover file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi </b><i>name</i><b> ...</b></td>
+    <td>&#x2003;edit first; rest via <b>:n</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>% vi -t </b><i>tag</i><b></b></td>
+    <td>&#x2003;start at <i>tag</i></td>
+  </tr>
+</table>
+<b>The display</b>
+<table class="tbl">
+  <tr>
+    <td>Last line</td>
+    <td>Error messages, echoing input to <b>: / ?</b> and <b>!</b>, feedback
+      about i/o and large changes.</td>
+  </tr>
+  <tr>
+    <td>@ lines</td>
+    <td>On screen only, not in file.</td>
+  </tr>
+  <tr>
+    <td>~ lines</td>
+    <td>Lines past end of file.</td>
+  </tr>
+  <tr>
+    <td>^<i>x</i></td>
+    <td>Control characters, ^? is delete.</td>
+  </tr>
+  <tr>
+    <td>tabs</td>
+    <td>Expand to spaces, cursor at last.</td>
+  </tr>
+</table>
+<p class="Pp"><b>Vi states</b></p>
+<table class="tbl">
+  <tr>
+    <td>Command</td>
+    <td>Normal and initial state. Others return here. ESC (escape) cancels
+      partial command.</td>
+  </tr>
+  <tr>
+    <td>Insert</td>
+    <td>Entered by <b>a i A I o O c C s S</b> <b>R</b>. Arbitrary text then
+      terminates with ESC character, or abnormally with interrupt.</td>
+  </tr>
+  <tr>
+    <td>Last line</td>
+    <td>Reading input for <b>: / ?</b> or <b>!</b>; terminate with ESC or CR to
+      execute, interrupt to cancel.</td>
+  </tr>
+</table>
+<b>Counts before vi commands</b>
+<table class="tbl">
+  <tr>
+    <td>new window size</td>
+    <td><b>: / ? [[ ]] ^F ^B ` &#x00B4;</b></td>
+  </tr>
+  <tr>
+    <td>line/column number</td>
+    <td><b>z G |</b></td>
+  </tr>
+  <tr>
+    <td>scroll amount</td>
+    <td><b>^D ^U</b></td>
+  </tr>
+  <tr>
+    <td>replicate insert</td>
+    <td><b>a i A I</b></td>
+  </tr>
+  <tr>
+    <td>repeat effect</td>
+    <td><b></b>most rest<b></b></td>
+  </tr>
+</table>
+<b>Simple commands</b>
+<table class="tbl">
+  <tr>
+    <td><b>dw</b></td>
+    <td>delete a word</td>
+  </tr>
+  <tr>
+    <td><b>de</b></td>
+    <td>... leaving punctuation</td>
+  </tr>
+  <tr>
+    <td><b>dd</b></td>
+    <td>delete a line</td>
+  </tr>
+  <tr>
+    <td><b>3dd</b></td>
+    <td>... 3 lines</td>
+  </tr>
+  <tr>
+    <td><b>i</b><i>text</i><b></b>ESC<b></b></td>
+    <td>insert text <i>abc</i></td>
+  </tr>
+  <tr>
+    <td><b>cw</b><i>new</i><b></b>ESC<b></b></td>
+    <td>change word to <i>new</i></td>
+  </tr>
+  <tr>
+    <td><b>ea</b><i>s</i><b></b>ESC<b></b></td>
+    <td>pluralize word</td>
+  </tr>
+  <tr>
+    <td><b>xp</b></td>
+    <td>transpose characters</td>
+  </tr>
+</table>
+<b>Interrupting, cancelling</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>ESC</b></td>
+    <td>&#x2003;end insert or incomplete cmd</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^?</b></td>
+    <td>&#x2003;(delete or rubout) interrupts</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^L</b></td>
+    <td>&#x2003;reprint screen if <b>^?</b> scrambles it</td>
+  </tr>
+</table>
+<b>File manipulation</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>:w</b></td>
+    <td>&#x2003;write back changes</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:wq</b></td>
+    <td>&#x2003;write and quit</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:q</b></td>
+    <td>&#x2003;quit</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:q!</b></td>
+    <td>&#x2003;quit, discard changes</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:e </b><i>name</i><b></b></td>
+    <td>&#x2003;edit file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:e!</b></td>
+    <td>&#x2003;reedit, discard changes</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:e + </b><i>name</i><b></b></td>
+    <td>&#x2003;edit, starting at end</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:e +</b><i>n</i></td>
+    <td>&#x2003;edit starting at line <i>n</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:e #</b></td>
+    <td>&#x2003;edit alternate file</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^&#x2191;</b></td>
+    <td>&#x2003;synonym for <b>:e #</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:w </b><i>name</i><b></b></td>
+    <td>&#x2003;write file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:w! </b><i>name</i><b></b></td>
+    <td>&#x2003;overwrite file <i>name</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:sh</b></td>
+    <td>&#x2003;run shell, then return</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:!</b><i>cmd</i><b></b></td>
+    <td>&#x2003;run <i>cmd</i>, then return</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:n</b></td>
+    <td>&#x2003;edit next file in arglist</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:n </b><i>args</i><b></b></td>
+    <td>&#x2003;specify new arglist</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:f</b></td>
+    <td>&#x2003;show current file and line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^G</b></td>
+    <td>&#x2003;synonym for <b>:f</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>:ta </b><i>tag</i><b></b></td>
+    <td>&#x2003;to tag file entry <i>tag</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^]</b></td>
+    <td>&#x2003;<b>:ta</b>, following word is <i>tag</i></td>
+  </tr>
+</table>
+<b>Positioning within file</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>^F</b></td>
+    <td>&#x2003;forward screenful</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^B</b></td>
+    <td>&#x2003;backward screenful</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^D</b></td>
+    <td>&#x2003;scroll down half screen</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^U</b></td>
+    <td>&#x2003;scroll up half screen</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>G</b></td>
+    <td>&#x2003;goto line (end default)</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>/</b><i>pat</i></td>
+    <td>&#x2003;next line matching <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>?</b><i>pat</i></td>
+    <td>&#x2003;prev line matching <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>n</b></td>
+    <td>&#x2003;repeat last <b>/</b> or <b>?</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>N</b></td>
+    <td>&#x2003;reverse last <b>/</b> or <b>?</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>/</b><i>pat</i><b>/+</b><i>n</i><b></b></td>
+    <td>&#x2003;n'th line after <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>?</b><i>pat</i><b>?-</b><i>n</i><b></b></td>
+    <td>&#x2003;n'th line before <i>pat</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>]]</b></td>
+    <td>&#x2003;next section/function</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>[[</b></td>
+    <td>&#x2003;previous section/function</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>%</b></td>
+    <td>&#x2003;find matching <b>( ) {</b> or <b>}</b></td>
+  </tr>
+</table>
+<b>Adjusting the screen</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>^L</b></td>
+    <td>&#x2003;clear and redraw</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^R</b></td>
+    <td>&#x2003;retype, eliminate @ lines</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>z</b>CR<b></b></td>
+    <td>&#x2003;redraw, current at window top</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>z-</b></td>
+    <td>&#x2003;... at bottom</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>z.</b></td>
+    <td>&#x2003;... at center</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>/</b><i>pat</i><b>/z-</b></td>
+    <td>&#x2003;<i>pat</i> line at bottom</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>z</b><i>n</i><b>.</b></td>
+    <td>&#x2003;use <i>n</i> line window</td>
+  </tr>
+</table>
+<b>Marking and returning</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>``</b></td>
+    <td>&#x2003;previous context</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&#x00B4;&#x00B4;</b></td>
+    <td>&#x2003;... at first non-white in line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>m</b><i>x</i><b></b></td>
+    <td>&#x2003;mark position with letter <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>`</b><i>x</i><b></b></td>
+    <td>&#x2003;to mark <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&#x00B4;</b><i>x</i><b></b></td>
+    <td>&#x2003;... at first non-white in line</td>
+  </tr>
+</table>
+<b>Line positioning</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>H</b></td>
+    <td>&#x2003;home window line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>L</b></td>
+    <td>&#x2003;last window line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>M</b></td>
+    <td>&#x2003;middle window line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>+</b></td>
+    <td>&#x2003;next line, at first non-white</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>-</b></td>
+    <td>&#x2003;previous line, at first non-white</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b>CR<b></b></td>
+    <td>&#x2003;return, same as +</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^N</b></td>
+    <td>&#x2003;next line, same column</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^P</b></td>
+    <td>&#x2003;previous line, same column</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b><b>LF</b><b></b></td>
+    <td>&#x2003;linefeed, same as <b>^N</b></td>
+  </tr>
+</table>
+<b>Character positioning</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>&#x2191;</b></td>
+    <td>&#x2003;first non white</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>0</b></td>
+    <td>&#x2003;beginning of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>$</b></td>
+    <td>&#x2003;end of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b>space<b></b></td>
+    <td>&#x2003;forward</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^H</b></td>
+    <td>&#x2003;backwards</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>h</b></td>
+    <td>&#x2003;same as <b>^H</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>f</b><i>x</i><b></b></td>
+    <td>&#x2003;find <i>x</i> forward</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>F</b><i>x</i><b></b></td>
+    <td>&#x2003;<b>f</b> backward</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>t</b><i>x</i><b></b></td>
+    <td>&#x2003;upto <i>x</i> forward</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>T</b><i>x</i><b></b></td>
+    <td>&#x2003;back upto <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>;</b></td>
+    <td>&#x2003;repeat last <b>f F t</b> or <b>T</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>,</b></td>
+    <td>&#x2003;inverse of <b>;</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>|</b></td>
+    <td>&#x2003;to specified column</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>%</b></td>
+    <td>&#x2003;find matching <b>( { )</b> or <b>}</b></td>
+  </tr>
+</table>
+<b>Words, sentences, paragraphs</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>w</b></td>
+    <td>&#x2003;word forward</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>b</b></td>
+    <td>&#x2003;back word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>e</b></td>
+    <td>&#x2003;end of word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>)</b></td>
+    <td>&#x2003;to next sentence</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>}</b></td>
+    <td>&#x2003;to next paragraph</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>(</b></td>
+    <td>&#x2003;back sentence</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>{</b></td>
+    <td>&#x2003;back paragraph</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>W</b></td>
+    <td>&#x2003;blank delimited word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>B</b></td>
+    <td>&#x2003;back <b>W</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>E</b></td>
+    <td>&#x2003;to end of <b>W</b></td>
+  </tr>
+</table>
+<b>Commands for LISP</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>)</b></td>
+    <td>&#x2003;Forward s-expression</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>}</b></td>
+    <td>&#x2003;... but don't stop at atoms</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>(</b></td>
+    <td>&#x2003;Back s-expression</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>{</b></td>
+    <td>&#x2003;... but don't stop at atoms</td>
+  </tr>
+</table>
+<b>Corrections during insert</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>^H</b></td>
+    <td>&#x2003;erase last character</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^W</b></td>
+    <td>&#x2003;erases last word</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b>erase<b></b></td>
+    <td>&#x2003;your erase, same as <b>^H</b></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b>kill<b></b></td>
+    <td>&#x2003;your kill, erase input this line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>\</b></td>
+    <td>&#x2003;escapes <b>^H</b>, your erase and kill</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b>ESC<b></b></td>
+    <td>&#x2003;ends insertion, back to command</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^?</b></td>
+    <td>&#x2003;interrupt, terminates insert</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^D</b></td>
+    <td>&#x2003;backtab over <i>autoindent</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&#x2191;^D</b></td>
+    <td>&#x2003;kill <i>autoindent</i>, save for next</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>0^D</b></td>
+    <td>&#x2003;... but at margin next also</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^Q</b></td>
+    <td>&#x2003;quote non-printing character</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>^T</b></td>
+    <td>&#x2003;<i>shiftwidth</i> forward tab</td>
+  </tr>
+</table>
+<b>Insert and replace</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>a</b></td>
+    <td>&#x2003;append after cursor</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>i</b></td>
+    <td>&#x2003;insert before</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>A</b></td>
+    <td>&#x2003;append at end of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>I</b></td>
+    <td>&#x2003;insert before first non-blank</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>o</b></td>
+    <td>&#x2003;open line below</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>O</b></td>
+    <td>&#x2003;open above</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>r</b><i>x</i><b></b></td>
+    <td>&#x2003;replace single char with <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>R</b></td>
+    <td>&#x2003;replace characters</td>
+  </tr>
+</table>
+<b>Operators (double to affect lines)</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>d</b></td>
+    <td>&#x2003;delete</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>c</b></td>
+    <td>&#x2003;change</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&lt;</b></td>
+    <td>&#x2003;left shift</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&gt;</b></td>
+    <td>&#x2003;right shift</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>!</b></td>
+    <td>&#x2003;filter through command</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>=</b></td>
+    <td>&#x2003;indent for LISP</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>y</b></td>
+    <td>&#x2003;yank lines to buffer</td>
+  </tr>
+</table>
+<b>Miscellaneous operations</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>C</b></td>
+    <td>&#x2003;change rest of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>D</b></td>
+    <td>&#x2003;delete rest of line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>s</b></td>
+    <td>&#x2003;substitute chars</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>S</b></td>
+    <td>&#x2003;substitute lines</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>J</b></td>
+    <td>&#x2003;join lines</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>x</b></td>
+    <td>&#x2003;delete characters</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>X</b></td>
+    <td>&#x2003;... before cursor</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>Y</b></td>
+    <td>&#x2003;yank lines</td>
+  </tr>
+</table>
+<b>Yank and put</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>p</b></td>
+    <td>&#x2003;put back lines</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>P</b></td>
+    <td>&#x2003;put before</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&quot;</b><i>x</i><b>p</b></td>
+    <td>&#x2003;put from buffer <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&quot;</b><i>x</i><b>y</b></td>
+    <td>&#x2003;yank to buffer <i>x</i></td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&quot;</b><i>x</i><b>d</b></td>
+    <td>&#x2003;delete into buffer <i>x</i></td>
+  </tr>
+</table>
+<b>Undo, redo, retrieve</b>
+<table class="tbl">
+  <tr>
+    <td><b>&#x2003;</b><b>u</b></td>
+    <td>&#x2003;undo last change</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>U</b></td>
+    <td>&#x2003;restore current line</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b></b><b>.</b><b></b></td>
+    <td>&#x2003;repeat last change</td>
+  </tr>
+  <tr>
+    <td><b>&#x2003;</b><b>&quot;</b><i>d</i><b>p</b></td>
+    <td>&#x2003;retrieve <i>d</i>'th last delete</td>
+  </tr>
+</table>
 </div>
 <table class="foot">
   <tr>
